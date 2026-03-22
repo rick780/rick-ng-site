@@ -30,9 +30,9 @@ export default function App() {
   useEffect(() => {
     if (!user) return;
     const leadsRef = collection(db, 'artifacts', appId, 'public', 'data', 'newsletter_leads');
-    const unsubLeads = onSnapshot(leadsRef, (s) => setLeads(s.docs.map(d => ({ id: d.id, ...d.data() }))));
+    const unsubLeads = onSnapshot(leadsRef, (s) => setLeads(s.docs.map(d => ({ id: d.id, ...d.data() }))), (e) => console.log(e));
     const bookingsRef = collection(db, 'artifacts', appId, 'public', 'data', 'bookings');
-    const unsubBookings = onSnapshot(bookingsRef, (s) => setBookings(s.docs.map(d => ({ id: d.id, ...d.data() }))));
+    const unsubBookings = onSnapshot(bookingsRef, (s) => setBookings(s.docs.map(d => ({ id: d.id, ...d.data() }))), (e) => console.log(e));
     return () => { unsubLeads(); unsubBookings(); };
   }, [user]);
 
@@ -47,6 +47,7 @@ export default function App() {
         userId: user.uid
       });
       setNewsletterStatus('success');
+      setNewsletterEmail('');
     } catch (err) { setNewsletterStatus('idle'); }
   };
 
@@ -73,7 +74,7 @@ export default function App() {
           </div>
           <div className="hidden md:flex gap-8 items-center text-[11px] font-bold text-slate-400 uppercase tracking-widest">
             <a href="#philosophy" className="hover:text-slate-900 transition underline-offset-4 hover:underline">Philosophy</a>
-            <a href="#reset" className="text-blue-600 hover:text-blue-700 transition flex items-center gap-1">Request Reset <ArrowRight className="w-3 h-3" /></a>
+            <button onClick={() => document.getElementById('reset').scrollIntoView({ behavior: 'smooth' })} className="text-blue-600 hover:text-blue-700 transition flex items-center gap-1 uppercase">Request Reset <ArrowRight className="w-3 h-3" /></button>
           </div>
         </div>
       </nav>
@@ -143,19 +144,43 @@ export default function App() {
         </div>
       </section>
 
+      <section className="py-20 bg-white border-t border-slate-100">
+        <div className="max-w-xl mx-auto px-6 text-center">
+          <h3 className="text-2xl font-bold mb-2">Get the Weekly Reset</h3>
+          <p className="text-slate-500 mb-8">One mental model for the bumpy week ahead.</p>
+          {newsletterStatus === 'success' ? (
+            <p className="text-blue-600 font-bold">You're on the list!</p>
+          ) : (
+            <form onSubmit={handleNewsletter} className="flex gap-2">
+              <input type="email" required placeholder="Email address" value={newsletterEmail} onChange={e => setNewsletterEmail(e.target.value)} className="flex-grow border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-600" />
+              <button type="submit" disabled={newsletterStatus === 'loading'} className="bg-slate-900 text-white px-6 py-3 rounded-xl font-bold">Join</button>
+            </form>
+          )}
+        </div>
+      </section>
+
       <div className="py-12 px-6 bg-[#fafafa] border-t border-slate-100 text-center">
         <button onClick={() => setShowAdmin(!showAdmin)} className="text-slate-300 hover:text-slate-900 text-[10px] font-mono uppercase tracking-[0.2em]">
           {showAdmin ? "[ Exit Logs ]" : "[ Owner Dashboard ]"}
         </button>
         {showAdmin && (
-          <div className="mt-8 text-left max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
-            <div className="bg-white p-6 rounded-3xl border border-slate-200">
-              <h4 className="font-bold text-xs uppercase mb-4 flex items-center gap-2"><Zap className="w-3 h-3 text-blue-600" /> Pulse List ({leads.length})</h4>
-              {leads.map(l => <div key={l.id} className="text-[10px] p-2 bg-slate-50 rounded-lg mb-1">{l.email}</div>)}
+          <div className="mt-8 text-left max-w-4xl mx-auto grid md:grid-cols-2 gap-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
+              <h4 className="font-bold text-xs uppercase mb-4 flex items-center gap-2 text-slate-400"><Zap className="w-3 h-3 text-blue-600" /> Newsletter Leads ({leads.length})</h4>
+              <div className="max-h-60 overflow-y-auto space-y-2">
+                {leads.map(l => <div key={l.id} className="text-[11px] p-2 bg-slate-50 rounded-lg border border-slate-100">{l.email}</div>)}
+              </div>
             </div>
-            <div className="bg-white p-6 rounded-3xl border border-slate-200">
-              <h4 className="font-bold text-xs uppercase mb-4 flex items-center gap-2"><MessageSquare className="w-3 h-3 text-blue-600" /> Requests ({bookings.length})</h4>
-              {bookings.map(b => <div key={b.id} className="text-[10px] p-3 border-l-2 border-blue-500 bg-slate-50 mb-2 font-bold">{b.name}: <span className="font-normal italic">{b.turbulence}</span></div>)}
+            <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
+              <h4 className="font-bold text-xs uppercase mb-4 flex items-center gap-2 text-slate-400"><MessageSquare className="w-3 h-3 text-blue-600" /> Reset Bookings ({bookings.length})</h4>
+              <div className="max-h-60 overflow-y-auto space-y-3">
+                {bookings.map(b => (
+                  <div key={b.id} className="text-[11px] p-3 border-l-4 border-blue-500 bg-slate-50 rounded-r-lg">
+                    <div className="font-bold text-slate-900">{b.name} <span className="font-normal text-slate-400 ml-1">({b.email})</span></div>
+                    <div className="mt-1 text-slate-600 italic">"{b.turbulence}"</div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         )}
