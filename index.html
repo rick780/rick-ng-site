@@ -1,13 +1,553 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>rick-ng-coaching</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rick Ng — Coaching for Calmness</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:       #1a1510;
+      --ink-soft:  #4a3f35;
+      --parchment: #f7f3ec;
+      --warm:      #ede7db;
+      --accent:    #b5572a;
+      --accent-lt: #d4784a;
+      --line:      rgba(26,21,16,0.12);
+      --serif:     'DM Serif Display', Georgia, serif;
+      --sans:      'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--parchment);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 6vw;
+      background: rgba(247,243,236,0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-logo { font-family: var(--serif); font-size: 1.15rem; letter-spacing: 0.01em; }
+    .nav-cta {
+      background: var(--ink); color: var(--parchment);
+      border: none; padding: 0.55rem 1.4rem;
+      font-family: var(--sans); font-size: 0.85rem; font-weight: 500;
+      letter-spacing: 0.04em; cursor: pointer; border-radius: 2px;
+      transition: background 0.2s;
+      text-decoration: none; display: inline-block;
+    }
+    .nav-cta:hover { background: var(--accent); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 72px;
+    }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 8vw 5vw 8vw 8vw;
+      border-right: 1px solid var(--line);
+    }
+    .hero-eyebrow {
+      font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1.5rem; font-weight: 500;
+    }
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      line-height: 1.1;
+      margin-bottom: 2rem;
+    }
+    .hero-title em { font-style: italic; color: var(--accent); }
+    .hero-body {
+      font-size: 1.05rem; color: var(--ink-soft);
+      max-width: 480px; margin-bottom: 2.5rem;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--accent); color: #fff;
+      border: none; padding: 0.85rem 2rem;
+      font-family: var(--sans); font-size: 0.9rem; font-weight: 500;
+      letter-spacing: 0.04em; cursor: pointer; border-radius: 2px;
+      transition: background 0.2s; text-decoration: none; display: inline-block;
+    }
+    .btn-primary:hover { background: var(--accent-lt); }
+    .btn-ghost {
+      background: transparent; color: var(--ink);
+      border: 1px solid var(--ink); padding: 0.85rem 2rem;
+      font-family: var(--sans); font-size: 0.9rem; font-weight: 500;
+      letter-spacing: 0.04em; cursor: pointer; border-radius: 2px;
+      transition: all 0.2s; text-decoration: none; display: inline-block;
+    }
+    .btn-ghost:hover { background: var(--ink); color: var(--parchment); }
+
+    .hero-right {
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 6vw 8vw 8vw 5vw;
+      background: var(--warm);
+      position: relative; overflow: hidden;
+    }
+    .hero-quote-mark {
+      font-family: var(--serif); font-size: 14rem; line-height: 1;
+      color: rgba(181,87,42,0.1); position: absolute; top: 2rem; right: 3rem;
+      pointer-events: none; user-select: none;
+    }
+    .hero-quote {
+      font-family: var(--serif); font-size: clamp(1.2rem, 2vw, 1.6rem);
+      line-height: 1.5; color: var(--ink); margin-bottom: 1.5rem;
+      position: relative; z-index: 1;
+    }
+    .hero-quote-attr {
+      font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--ink-soft); font-weight: 500;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--accent); color: #fff;
+      padding: 0.5rem 1rem; font-size: 0.8rem; font-weight: 500;
+      letter-spacing: 0.05em; border-radius: 2px; margin-top: 2.5rem;
+      width: fit-content;
+    }
+    .badge-dot {
+      width: 7px; height: 7px; border-radius: 50%; background: #fff;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; } 50% { opacity: 0.4; }
+    }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 7rem 8vw; }
+    .section-label {
+      font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent); font-weight: 500; margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 3rem);
+      line-height: 1.2; margin-bottom: 1.5rem;
+    }
+    .divider {
+      width: 40px; height: 2px; background: var(--accent); margin-bottom: 2rem;
+    }
+
+    /* ── PHILOSOPHY ── */
+    .philosophy { background: var(--ink); color: var(--parchment); }
+    .philosophy .section-label { color: var(--accent-lt); }
+    .philosophy-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; margin-top: 3.5rem;
+    }
+    .phil-item {}
+    .phil-number {
+      font-family: var(--serif); font-size: 3rem; color: var(--accent);
+      opacity: 0.5; line-height: 1; margin-bottom: 0.75rem;
+    }
+    .phil-heading {
+      font-family: var(--serif); font-size: 1.35rem; margin-bottom: 0.75rem;
+    }
+    .phil-body { font-size: 0.95rem; color: rgba(247,243,236,0.65); line-height: 1.8; }
+
+    /* ── ABOUT ── */
+    .about { background: var(--parchment); }
+    .about-inner {
+      display: grid; grid-template-columns: 1fr 1.6fr; gap: 5rem; align-items: start;
+    }
+    .about-left {}
+    .about-name {
+      font-family: var(--serif); font-size: clamp(2.5rem, 4vw, 3.5rem);
+      line-height: 1.1; margin-bottom: 0.5rem;
+    }
+    .about-title-tag {
+      display: inline-block; background: var(--accent); color: #fff;
+      font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.3rem 0.8rem; font-weight: 500; border-radius: 2px; margin-bottom: 1.5rem;
+    }
+    .about-portrait-placeholder {
+      width: 100%; aspect-ratio: 3/4; background: var(--warm);
+      border: 1px solid var(--line); display: flex; align-items: flex-end;
+      padding: 1.5rem; margin-top: 1.5rem;
+    }
+    .portrait-note { font-size: 0.75rem; color: var(--ink-soft); font-style: italic; }
+    .about-right {}
+    .about-body { font-size: 1rem; color: var(--ink-soft); margin-bottom: 1.5rem; }
+    .about-highlight {
+      border-left: 3px solid var(--accent); padding-left: 1.5rem;
+      font-family: var(--serif); font-size: 1.2rem; color: var(--ink);
+      line-height: 1.5; margin: 2rem 0;
+    }
+
+    /* ── OFFER ── */
+    .offer { background: var(--warm); }
+    .offer-cards {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .offer-card {
+      background: var(--parchment); border: 1px solid var(--line);
+      padding: 2.5rem 2rem; position: relative; overflow: hidden;
+    }
+    .offer-card.featured {
+      background: var(--ink); color: var(--parchment);
+      border-color: var(--ink);
+    }
+    .offer-card.featured .offer-price,
+    .offer-card.featured .offer-desc { color: rgba(247,243,236,0.65); }
+    .offer-tag {
+      position: absolute; top: 1.25rem; right: -1.5rem;
+      background: var(--accent); color: #fff;
+      font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.25rem 2rem; transform: rotate(0deg); font-weight: 500;
+    }
+    .offer-icon { font-size: 1.8rem; margin-bottom: 1.25rem; }
+    .offer-name {
+      font-family: var(--serif); font-size: 1.35rem; margin-bottom: 0.5rem;
+    }
+    .offer-price {
+      font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--ink-soft); margin-bottom: 1rem; font-weight: 500;
+    }
+    .offer-desc { font-size: 0.9rem; line-height: 1.7; }
+
+    /* ── FORMS SECTION ── */
+    .forms-section { background: var(--parchment); padding: 7rem 8vw; }
+    .forms-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 3.5rem;
+    }
+    .form-card {
+      background: var(--warm); border: 1px solid var(--line); padding: 2.5rem 2.5rem;
+    }
+    .form-card-title {
+      font-family: var(--serif); font-size: 1.5rem; margin-bottom: 0.4rem;
+    }
+    .form-card-subtitle { font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 2rem; }
+    .form-group { margin-bottom: 1.25rem; }
+    label {
+      display: block; font-size: 0.78rem; letter-spacing: 0.08em;
+      text-transform: uppercase; font-weight: 500; color: var(--ink-soft);
+      margin-bottom: 0.4rem;
+    }
+    input, textarea, select {
+      width: 100%; padding: 0.75rem 1rem;
+      background: var(--parchment); border: 1px solid var(--line);
+      font-family: var(--sans); font-size: 0.95rem; color: var(--ink);
+      border-radius: 2px; outline: none; transition: border-color 0.2s;
+    }
+    input:focus, textarea:focus, select:focus { border-color: var(--accent); }
+    textarea { resize: vertical; min-height: 100px; }
+    .form-submit {
+      width: 100%; padding: 0.9rem;
+      background: var(--accent); color: #fff; border: none;
+      font-family: var(--sans); font-size: 0.9rem; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      cursor: pointer; border-radius: 2px; transition: background 0.2s;
+      margin-top: 0.5rem;
+    }
+    .form-submit:hover { background: var(--accent-lt); }
+    .form-submit:disabled { background: var(--ink-soft); cursor: not-allowed; }
+    .form-message {
+      margin-top: 0.75rem; font-size: 0.85rem; padding: 0.6rem 0.9rem;
+      border-radius: 2px; display: none;
+    }
+    .form-message.success { background: #e8f5e9; color: #2e7d32; display: block; }
+    .form-message.error   { background: #fdecea; color: #c62828; display: block; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink); color: rgba(247,243,236,0.5);
+      padding: 3rem 8vw; display: flex;
+      align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--parchment); }
+    .footer-note { font-size: 0.8rem; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-right { display: none; }
+      .hero-left { padding: 6rem 6vw 5rem; border-right: none; }
+      .philosophy-grid,
+      .about-inner,
+      .offer-cards,
+      .forms-grid { grid-template-columns: 1fr; }
+      .offer-cards { gap: 1rem; }
+    }
+
+    /* ── FADE IN ── */
+    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .fade-in.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Rick Ng</div>
+  <a href="#book" class="nav-cta">Book Free Session</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Life &amp; Mindset Coaching</p>
+    <h1 class="hero-title">You were built<br>for <em>calmness.</em><br>Let's get back<br>to it.</h1>
+    <p class="hero-body">The world hands us turbulence. We were never meant to thrive in it — we were trained to expect smooth. Understanding that tension is the first step to navigating it.</p>
+    <div class="hero-actions">
+      <a href="#book" class="btn-primary">Book a Free 15-Min Session</a>
+      <a href="#about" class="btn-ghost">Meet Rick</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-quote-mark">"</div>
+    <p class="hero-quote">"We crave for calmness but the world gives us turbulence. The answer isn't to push harder — it's to change what you expect."</p>
+    <p class="hero-quote-attr">— Rick Ng</p>
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      Free 15-min sessions now open
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy">
+  <p class="section-label">The Framework</p>
+  <h2 class="section-title" style="color:var(--parchment);">Why smart, driven people<br>still feel drained</h2>
+  <div class="philosophy-grid">
+    <div class="phil-item fade-in">
+      <div class="phil-number">01</div>
+      <h3 class="phil-heading">You were wired for calm</h3>
+      <p class="phil-body">From childhood, your baseline was a world with minimal friction. That wiring doesn't disappear in adulthood — it just goes unacknowledged, creating a constant gap between what you expect and what you experience.</p>
+    </div>
+    <div class="phil-item fade-in">
+      <div class="phil-number">02</div>
+      <h3 class="phil-heading">The world delivers turbulence</h3>
+      <p class="phil-body">Work, clients, relationships — they poke at your normalcy bubble daily. When reality doesn't match your internal expectation of calm, the result isn't just frustration. It's burnout.</p>
+    </div>
+    <div class="phil-item fade-in">
+      <div class="phil-number">03</div>
+      <h3 class="phil-heading">Alter the expectation</h3>
+      <p class="phil-body">The fix isn't to push through harder. It's to change what you expect when you wake up. Mental preparation — real, practised imagination — begins to close the gap between inner need and outer reality.</p>
+    </div>
+    <div class="phil-item fade-in">
+      <div class="phil-number">04</div>
+      <h3 class="phil-heading">Train the mind &amp; emotions</h3>
+      <p class="phil-body">This is a practised skill, not a personality type. With the right tools and a thinking partner, you can start building genuine resilience — not the kind you perform for others, but the kind that holds when things get hard.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-left fade-in">
+      <p class="section-label">Your Coach</p>
+      <h2 class="about-name">Rick<br>Ng</h2>
+      <span class="about-title-tag">Mindset &amp; Life Coach</span>
+      <div class="about-portrait-placeholder">
+        <p class="portrait-note">[ Your photo goes here ]</p>
+      </div>
+    </div>
+    <div class="about-right fade-in">
+      <div class="divider"></div>
+      <p class="about-body">I'm not here to tell you that struggle is an opportunity for growth. You've heard that a hundred times — and maybe it hasn't moved the needle.</p>
+      <p class="about-body">My perspective is different, and it comes from lived experience: the reason we struggle isn't a lack of toughness. It's that we were raised in a world that set our expectations for calm, and nobody told us that was going to change.</p>
+      <div class="about-highlight">"We feel struggle because humans, in general, have a need for calmness. Our minds and expectations were like that from the day we were born."</div>
+      <p class="about-body">I've spent years studying how our mental frameworks — the ones formed in childhood — collide with the demands of adult working life. My coaching is grounded in that gap: what you were trained to expect, versus what the world actually delivers.</p>
+      <p class="about-body">I offer a thinking space that's honest, direct, and free from the usual motivational filler. If you're tired, burned out, or just feeling like something's off — I'd like to talk.</p>
+    </div>
+  </div>
+</section>
+
+<!-- OFFER -->
+<section class="offer">
+  <p class="section-label">Work With Me</p>
+  <h2 class="section-title">Simple, honest engagements</h2>
+  <div class="offer-cards">
+    <div class="offer-card fade-in">
+      <div class="offer-icon">🌱</div>
+      <h3 class="offer-name">Free Intro Session</h3>
+      <p class="offer-price">15 minutes · No charge</p>
+      <p class="offer-desc">A no-pressure conversation to see if we're a fit. Tell me what's been weighing on you and we'll map a first step together.</p>
+    </div>
+    <div class="offer-card featured fade-in">
+      <span class="offer-tag">Most Popular</span>
+      <div class="offer-icon">🧭</div>
+      <h3 class="offer-name">Single Session</h3>
+      <p class="offer-price">60 minutes · One-off</p>
+      <p class="offer-desc">A focused deep-dive into a specific challenge — mental fatigue, emotional management, navigating a hard season at work or in life.</p>
+    </div>
+    <div class="offer-card fade-in">
+      <div class="offer-icon">🔁</div>
+      <h3 class="offer-name">Ongoing Coaching</h3>
+      <p class="offer-price">Monthly · Recurring</p>
+      <p class="offer-desc">Consistent sessions to build the mental and emotional habits that create lasting change. Best for those ready to do the real work.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FORMS -->
+<section class="forms-section" id="book">
+  <p class="section-label">Take the First Step</p>
+  <h2 class="section-title">Book a session or<br>stay in the loop</h2>
+  <div class="forms-grid">
+
+    <!-- BOOKING FORM -->
+    <div class="form-card fade-in">
+      <h3 class="form-card-title">Book a Free 15-Min Session</h3>
+      <p class="form-card-subtitle">Leave your details and a little about what you'd like to talk through. Rick will reach out to confirm a time.</p>
+      <form id="bookingForm">
+        <div class="form-group">
+          <label for="b-name">Your Name</label>
+          <input type="text" id="b-name" placeholder="e.g. Sarah Lim" required />
+        </div>
+        <div class="form-group">
+          <label for="b-email">Email Address</label>
+          <input type="email" id="b-email" placeholder="you@email.com" required />
+        </div>
+        <div class="form-group">
+          <label for="b-topic">What's on your mind?</label>
+          <textarea id="b-topic" placeholder="Tell me a little about what you're going through or what you'd like to explore..."></textarea>
+        </div>
+        <button type="submit" class="form-submit" id="bookBtn">Reserve My Spot</button>
+        <div class="form-message" id="bookMsg"></div>
+      </form>
+    </div>
+
+    <!-- NEWSLETTER FORM -->
+    <div class="form-card fade-in">
+      <h3 class="form-card-title">Join the Newsletter</h3>
+      <p class="form-card-subtitle">Reflections on calmness, mental clarity, and navigating a turbulent world — straight to your inbox. No noise.</p>
+      <form id="newsletterForm">
+        <div class="form-group">
+          <label for="n-name">Your Name</label>
+          <input type="text" id="n-name" placeholder="e.g. James Tan" required />
+        </div>
+        <div class="form-group">
+          <label for="n-email">Email Address</label>
+          <input type="email" id="n-email" placeholder="you@email.com" required />
+        </div>
+        <div class="form-group">
+          <label for="n-interest">What interests you most?</label>
+          <select id="n-interest">
+            <option value="">— Select a topic —</option>
+            <option value="burnout">Dealing with burnout</option>
+            <option value="mindset">Mindset &amp; mental prep</option>
+            <option value="emotions">Emotional resilience</option>
+            <option value="work-life">Work-life navigation</option>
+            <option value="general">General wellbeing</option>
+          </select>
+        </div>
+        <button type="submit" class="form-submit" id="newsBtn">Subscribe</button>
+        <div class="form-message" id="newsMsg"></div>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Rick Ng — Coaching</div>
+  <p class="footer-note">© 2025 Rick Ng. Based in Penang, Malaysia.</p>
+</footer>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     FIREBASE CONFIGURATION
+     Replace the config below with YOUR Firebase project's config.
+     Go to: Firebase Console → Project Settings → Your Apps → Config
+     ═══════════════════════════════════════════════════════ -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, serverTimestamp }
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey:            "AIzaSyB39hTahvOdG59Vw4lVuGWB8IOD7_ktFdM",
+    authDomain:        "rick-ng-coaching.firebaseapp.com",
+    projectId:         "rick-ng-coaching",
+    storageBucket:     "rick-ng-coaching.firebasestorage.app",
+    messagingSenderId: "401970927829",
+    appId:             "1:401970927829:web:2658b167198c46dbe96a5c",
+    measurementId:     "G-9NJ7BKM5Q8"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db  = getFirestore(app);
+
+  // ── Booking form ──
+  document.getElementById("bookingForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById("bookBtn");
+    const msg = document.getElementById("bookMsg");
+    btn.disabled = true; btn.textContent = "Sending…";
+    try {
+      await addDoc(collection(db, "bookings"), {
+        name:      document.getElementById("b-name").value.trim(),
+        email:     document.getElementById("b-email").value.trim(),
+        message:   document.getElementById("b-topic").value.trim(),
+        createdAt: serverTimestamp()
+      });
+      msg.className = "form-message success";
+      msg.textContent = "✓ Got it! Rick will be in touch shortly to confirm your session.";
+      e.target.reset();
+    } catch (err) {
+      msg.className = "form-message error";
+      msg.textContent = "Something went wrong. Please try again or email Rick directly.";
+      console.error(err);
+    }
+    btn.disabled = false; btn.textContent = "Reserve My Spot";
+  });
+
+  // ── Newsletter form ──
+  document.getElementById("newsletterForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById("newsBtn");
+    const msg = document.getElementById("newsMsg");
+    btn.disabled = true; btn.textContent = "Subscribing…";
+    try {
+      await addDoc(collection(db, "newsletter"), {
+        name:      document.getElementById("n-name").value.trim(),
+        email:     document.getElementById("n-email").value.trim(),
+        interest:  document.getElementById("n-interest").value,
+        createdAt: serverTimestamp()
+      });
+      msg.className = "form-message success";
+      msg.textContent = "✓ You're in! Expect something thoughtful in your inbox soon.";
+      e.target.reset();
+    } catch (err) {
+      msg.className = "form-message error";
+      msg.textContent = "Something went wrong. Please try again.";
+      console.error(err);
+    }
+    btn.disabled = false; btn.textContent = "Subscribe";
+  });
+</script>
+
+<!-- Scroll fade-in -->
+<script>
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll(".fade-in").forEach(el => obs.observe(el));
+</script>
+
+</body>
 </html>
