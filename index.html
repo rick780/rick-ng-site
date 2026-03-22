@@ -226,6 +226,96 @@
     }
     .offer-desc { font-size: 0.9rem; line-height: 1.7; }
 
+    /* ── WHY RICK ── */
+    .why { background: var(--ink); color: var(--parchment); padding: 7rem 8vw; }
+    .why .section-label { color: var(--accent-lt); }
+    .why-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;
+      align-items: center; margin-top: 3rem;
+    }
+    .why-left {}
+    .why-statement {
+      font-family: var(--serif); font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+      line-height: 1.3; margin-bottom: 2rem;
+      color: var(--parchment);
+    }
+    .why-statement em { color: var(--accent-lt); font-style: italic; }
+    .why-body { font-size: 0.95rem; color: rgba(247,243,236,0.65); line-height: 1.85; margin-bottom: 1.25rem; }
+    .why-right {}
+    .why-list { list-style: none; }
+    .why-list li {
+      display: flex; gap: 1.25rem; align-items: flex-start;
+      padding: 1.5rem 0; border-bottom: 1px solid rgba(247,243,236,0.1);
+    }
+    .why-list li:first-child { border-top: 1px solid rgba(247,243,236,0.1); }
+    .why-check {
+      flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
+      background: var(--accent); display: flex; align-items: center;
+      justify-content: center; font-size: 0.7rem; margin-top: 0.15rem;
+    }
+    .why-item-title {
+      font-family: var(--serif); font-size: 1.05rem; margin-bottom: 0.3rem;
+    }
+    .why-item-body { font-size: 0.88rem; color: rgba(247,243,236,0.55); line-height: 1.7; }
+
+    /* ── ARTICLES ── */
+    .articles { background: var(--warm); padding: 7rem 8vw; }
+    .articles-grid {
+      display: grid; grid-template-columns: 1.8fr 1fr; gap: 2rem; margin-top: 3rem;
+    }
+    .article-card {
+      background: var(--parchment); border: 1px solid var(--line);
+      text-decoration: none; color: inherit; display: block;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .article-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(26,21,16,0.1); }
+    .article-card.featured { grid-row: span 2; display: flex; flex-direction: column; }
+    .article-thumb {
+      width: 100%; aspect-ratio: 16/9; background: var(--ink);
+      display: flex; align-items: flex-end; padding: 2rem;
+      position: relative; overflow: hidden;
+    }
+    .article-card.featured .article-thumb { aspect-ratio: 4/3; flex: 1; }
+    .article-thumb-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #2a1f17 0%, #b5572a 100%);
+      opacity: 0.9;
+    }
+    .article-thumb-pattern {
+      position: absolute; inset: 0; opacity: 0.07;
+      background-image: repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 50%);
+      background-size: 12px 12px;
+    }
+    .article-number {
+      font-family: var(--serif); font-size: 6rem; color: rgba(255,255,255,0.08);
+      position: absolute; bottom: -1rem; right: 1.5rem; line-height: 1;
+      pointer-events: none;
+    }
+    .article-tag {
+      position: relative; z-index: 1;
+      font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.6); font-weight: 500;
+      background: rgba(0,0,0,0.3); padding: 0.3rem 0.7rem; border-radius: 2px;
+    }
+    .article-body { padding: 1.75rem 2rem 2rem; }
+    .article-card:not(.featured) .article-body { padding: 1.25rem 1.5rem 1.5rem; }
+    .article-title {
+      font-family: var(--serif); font-size: 1.4rem; line-height: 1.3;
+      margin-bottom: 0.75rem;
+    }
+    .article-card:not(.featured) .article-title { font-size: 1.1rem; }
+    .article-excerpt { font-size: 0.9rem; color: var(--ink-soft); line-height: 1.75; margin-bottom: 1.25rem; }
+    .article-card:not(.featured) .article-excerpt { display: none; }
+    .article-meta {
+      font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--accent); font-weight: 500;
+    }
+    .articles-more {
+      margin-top: 2.5rem; text-align: center;
+      font-size: 0.85rem; color: var(--ink-soft);
+      font-style: italic;
+    }
+
     /* ── FORMS SECTION ── */
     .forms-section { background: var(--parchment); padding: 7rem 8vw; }
     .forms-grid {
@@ -287,6 +377,9 @@
       .about-inner,
       .offer-cards,
       .forms-grid { grid-template-columns: 1fr; }
+      .why-inner,
+      .articles-grid { grid-template-columns: 1fr; }
+      .article-card.featured { grid-row: span 1; }
       .offer-cards { gap: 1rem; }
     }
 
@@ -306,9 +399,9 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-left">
-    <p class="hero-eyebrow">Leadership &amp; Mindset Coaching for Engineers and Leaders in Corporate Life</p>
-    <h1 class="hero-title">The Chaos isn't<br>the problem.<br>Your <em>expectation</em><br> of <em>calm</em> is<br></h1>
-    <p class="hero-body">You weren't broken by the pressure. You were set up to be surprised by it. Leaders who train their minds for the real world — not the one they were promised — don't just survive. They become dangerous.</p>
+    <p class="hero-eyebrow">Life &amp; Mindset Coaching</p>
+    <h1 class="hero-title">You were built<br>for <em>calmness.</em><br>Let's get back<br>to it.</h1>
+    <p class="hero-body">The world hands us turbulence. We were never meant to thrive in it — we were trained to expect smooth. Understanding that tension is the first step to navigating it.</p>
     <div class="hero-actions">
       <a href="#book" class="btn-primary">Book a Free 15-Min Session</a>
       <a href="#about" class="btn-ghost">Meet Rick</a>
@@ -316,7 +409,7 @@
   </div>
   <div class="hero-right">
     <div class="hero-quote-mark">"</div>
-    <p class="hero-quote">"The problem was never the chaos. It was that nobody told you to expect it. When you finally do — everything changes."</p>
+    <p class="hero-quote">"We crave for calmness but the world gives us turbulence. The answer isn't to push harder — it's to change what you expect."</p>
     <p class="hero-quote-attr">— Rick Ng</p>
     <div class="hero-badge">
       <span class="badge-dot"></span>
@@ -328,27 +421,27 @@
 <!-- PHILOSOPHY -->
 <section class="philosophy">
   <p class="section-label">The Framework</p>
-  <h2 class="section-title" style="color:var(--parchment);">Why high performers hit a wall<br>and what actually fixes it</h2>
+  <h2 class="section-title" style="color:var(--parchment);">Why smart, driven people<br>still feel drained</h2>
   <div class="philosophy-grid">
     <div class="phil-item fade-in">
       <div class="phil-number">01</div>
-      <h3 class="phil-heading">You were Wired for Calm</h3>
+      <h3 class="phil-heading">You were wired for calm</h3>
       <p class="phil-body">From childhood, your baseline was a world with minimal friction. That wiring doesn't disappear in adulthood — it just goes unacknowledged, creating a constant gap between what you expect and what you experience.</p>
     </div>
     <div class="phil-item fade-in">
       <div class="phil-number">02</div>
-      <h3 class="phil-heading">The world delivers Turbulence</h3>
+      <h3 class="phil-heading">The world delivers turbulence</h3>
       <p class="phil-body">Work, clients, relationships — they poke at your normalcy bubble daily. When reality doesn't match your internal expectation of calm, the result isn't just frustration. It's burnout.</p>
     </div>
     <div class="phil-item fade-in">
       <div class="phil-number">03</div>
-      <h3 class="phil-heading">Alter the Expectation</h3>
+      <h3 class="phil-heading">Alter the expectation</h3>
       <p class="phil-body">The fix isn't to push through harder. It's to change what you expect when you wake up. Mental preparation — real, practised imagination — begins to close the gap between inner need and outer reality.</p>
     </div>
     <div class="phil-item fade-in">
       <div class="phil-number">04</div>
-      <h3 class="phil-heading">Build a Dangerous Mind</h3>
-      <p class="phil-body">A mind trained to expect chaos isn't just resilient. It's precise. It sees clearly when others are reacting. It leads when others are waiting for things to calm down. This is what we build together — slowly, deliberately, and permanently.</p>
+      <h3 class="phil-heading">Train the mind &amp; emotions</h3>
+      <p class="phil-body">This is a practised skill, not a personality type. With the right tools and a thinking partner, you can start building genuine resilience — not the kind you perform for others, but the kind that holds when things get hard.</p>
     </div>
   </div>
 </section>
@@ -361,16 +454,16 @@
       <h2 class="about-name">Rick<br>Ng</h2>
       <span class="about-title-tag">Mindset &amp; Life Coach</span>
       <div class="about-portrait-placeholder">
-        <img src="src/assets/bio_photo.png" alt="Rick Ng" style="width:100%;height:100%;object-fit:cover;display:block;" />
+        <img src="src/assets/bio-pic.jpg" alt="Rick Ng" style="width:100%;height:100%;object-fit:cover;display:block;" />
       </div>
     </div>
     <div class="about-right fade-in">
       <div class="divider"></div>
-      <p class="about-body">I spent years as an engineer and leader inside Motorola and Intel — places that demand everything and explain nothing about how to stay human while giving it.</p>
-      <p class="about-body">In 2025, I got laid off, watched my mother be diagnosed with stage 3 lung cancer, and moved her into a nursing home — all in the same year. I didn't fall apart. I rewired.</p>
-      <p class="about-body">I started reading voraciously — medicine, stoicism, psychology, philosophy. And I found something that changed how I experience everything: when you stop expecting calm and start expecting chaos as the default, you stop being a victim of your circumstances. You start leading from a completely different place.</p>
-      <div class="about-highlight">"I'm not here to motivate you. I'm here to give you a perspective that makes motivation unnecessary."</div>
-      <p class="about-body">Former engineering leader at Intel & Motorola · A coach that cares · Based in Penang, Malaysia · Coaching globally</p>
+      <p class="about-body">I'm not here to tell you that struggle is an opportunity for growth. You've heard that a hundred times — and maybe it hasn't moved the needle.</p>
+      <p class="about-body">My perspective is different, and it comes from lived experience: the reason we struggle isn't a lack of toughness. It's that we were raised in a world that set our expectations for calm, and nobody told us that was going to change.</p>
+      <div class="about-highlight">"We feel struggle because humans, in general, have a need for calmness. Our minds and expectations were like that from the day we were born."</div>
+      <p class="about-body">I've spent years studying how our mental frameworks — the ones formed in childhood — collide with the demands of adult working life. My coaching is grounded in that gap: what you were trained to expect, versus what the world actually delivers.</p>
+      <p class="about-body">I offer a thinking space that's honest, direct, and free from the usual motivational filler. If you're tired, burned out, or just feeling like something's off — I'd like to talk.</p>
     </div>
   </div>
 </section>
@@ -400,6 +493,101 @@
       <p class="offer-desc">Consistent sessions to build the mental and emotional habits that create lasting change. Best for those ready to do the real work.</p>
     </div>
   </div>
+</section>
+
+<!-- WHY RICK -->
+<section class="why">
+  <p class="section-label">Why Work With Rick</p>
+  <div class="why-inner">
+    <div class="why-left fade-in">
+      <h2 class="why-statement">No growth mindset speeches.<br>No <em>"you've got this."</em><br>Just honest thinking,<br>together.</h2>
+      <p class="why-body">Most coaching leans on the same playbook — reframe your struggles as opportunities, visualise success, push through. It sounds good. It rarely sticks.</p>
+      <p class="why-body">Rick's approach starts somewhere different: with the honest admission that you weren't built for the grind, and that understanding <em>why</em> you feel the way you do is more useful than being told to feel differently.</p>
+    </div>
+    <div class="why-right fade-in">
+      <ul class="why-list">
+        <li>
+          <div class="why-check">✓</div>
+          <div>
+            <p class="why-item-title">He skips the motivational script</p>
+            <p class="why-item-body">You won't hear "you're stronger than you think." You'll have a real conversation about what's actually going on and what to do about it.</p>
+          </div>
+        </li>
+        <li>
+          <div class="why-check">✓</div>
+          <div>
+            <p class="why-item-title">He goes to the root, not the symptom</p>
+            <p class="why-item-body">Burnout, frustration, and feeling stuck aren't character flaws. Rick helps you trace them back to misaligned expectations — then work from there.</p>
+          </div>
+        </li>
+        <li>
+          <div class="why-check">✓</div>
+          <div>
+            <p class="why-item-title">He's talking from experience, not a textbook</p>
+            <p class="why-item-body">Rick's framework was built from lived observation — watching himself and others navigate the gap between the calm we crave and the turbulence we get.</p>
+          </div>
+        </li>
+        <li>
+          <div class="why-check">✓</div>
+          <div>
+            <p class="why-item-title">The first conversation is completely free</p>
+            <p class="why-item-body">15 minutes. No pitch, no pressure. Just a chance to see if this is the right fit for where you are right now.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ARTICLES -->
+<section class="articles" id="articles">
+  <p class="section-label">From Rick's Desk</p>
+  <h2 class="section-title">Thinking out loud</h2>
+  <div class="articles-grid">
+
+    <!-- FEATURED ARTICLE -->
+    <a href="article-1.html" class="article-card featured fade-in">
+      <div class="article-thumb">
+        <div class="article-thumb-bg"></div>
+        <div class="article-thumb-pattern"></div>
+        <div class="article-number">01</div>
+        <span class="article-tag">Mindset · 4 min read</span>
+      </div>
+      <div class="article-body">
+        <h3 class="article-title">People's Need for Calmness</h3>
+        <p class="article-excerpt">Why do we struggle? Most coaches will tell you it's an opportunity for growth. I think that misses the point entirely. We struggle because we were wired — from childhood — to expect a calm world. And nobody warned us that was going to change.</p>
+        <p class="article-meta">Rick Ng · First published 2025</p>
+      </div>
+    </a>
+
+    <!-- PLACEHOLDER CARD 2 -->
+    <div class="article-card fade-in" style="opacity:0.5; pointer-events:none;">
+      <div class="article-thumb" style="aspect-ratio:16/9;">
+        <div class="article-thumb-bg" style="background: linear-gradient(135deg, #1a2a1f 0%, #3a7a52 100%);"></div>
+        <div class="article-thumb-pattern"></div>
+        <span class="article-tag" style="position:relative;z-index:1;">Coming Soon</span>
+      </div>
+      <div class="article-body">
+        <h3 class="article-title" style="font-size:1.1rem;">Next article coming soon</h3>
+        <p class="article-meta">Subscribe to be notified</p>
+      </div>
+    </div>
+
+    <!-- PLACEHOLDER CARD 3 -->
+    <div class="article-card fade-in" style="opacity:0.5; pointer-events:none;">
+      <div class="article-thumb" style="aspect-ratio:16/9;">
+        <div class="article-thumb-bg" style="background: linear-gradient(135deg, #1a1a2a 0%, #3a4a8a 100%);"></div>
+        <div class="article-thumb-pattern"></div>
+        <span class="article-tag" style="position:relative;z-index:1;">Coming Soon</span>
+      </div>
+      <div class="article-body">
+        <h3 class="article-title" style="font-size:1.1rem;">More on the way</h3>
+        <p class="article-meta">Subscribe to be notified</p>
+      </div>
+    </div>
+
+  </div>
+  <p class="articles-more">More articles drop regularly — <a href="#book" style="color:var(--accent); text-decoration:none;">subscribe to the newsletter</a> to get them first.</p>
 </section>
 
 <!-- FORMS -->

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>People's Need for Calmness — Rick Ng</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:       #1a1510;
+      --ink-soft:  #4a3f35;
+      --parchment: #f7f3ec;
+      --warm:      #ede7db;
+      --accent:    #b5572a;
+      --accent-lt: #d4784a;
+      --line:      rgba(26,21,16,0.12);
+      --serif:     'DM Serif Display', Georgia, serif;
+      --sans:      'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--parchment);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 6vw;
+      background: rgba(247,243,236,0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-logo {
+      font-family: var(--serif); font-size: 1.15rem;
+      letter-spacing: 0.01em; text-decoration: none; color: var(--ink);
+    }
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
+    .nav-link {
+      font-size: 0.85rem; color: var(--ink-soft); text-decoration: none;
+      font-weight: 400; letter-spacing: 0.02em; transition: color 0.2s;
+    }
+    .nav-link:hover { color: var(--accent); }
+    .nav-cta {
+      background: var(--ink); color: var(--parchment);
+      border: none; padding: 0.55rem 1.4rem;
+      font-family: var(--sans); font-size: 0.85rem; font-weight: 500;
+      letter-spacing: 0.04em; cursor: pointer; border-radius: 2px;
+      transition: background 0.2s; text-decoration: none; display: inline-block;
+    }
+    .nav-cta:hover { background: var(--accent); }
+
+    /* ── ARTICLE HERO ── */
+    .article-hero {
+      padding-top: 72px;
+      background: var(--ink);
+      color: var(--parchment);
+    }
+    .article-hero-inner {
+      max-width: 780px; margin: 0 auto;
+      padding: 6rem 4vw 4rem;
+    }
+    .article-eyebrow {
+      font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent-lt); font-weight: 500; margin-bottom: 1.5rem;
+    }
+    .article-hero-title {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      line-height: 1.1; margin-bottom: 1.75rem;
+    }
+    .article-hero-sub {
+      font-size: 1.1rem; color: rgba(247,243,236,0.65);
+      line-height: 1.7; margin-bottom: 2.5rem; max-width: 600px;
+    }
+    .article-byline {
+      display: flex; align-items: center; gap: 1rem;
+      padding-top: 2rem; border-top: 1px solid rgba(247,243,236,0.12);
+    }
+    .byline-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--accent); display: flex; align-items: center;
+      justify-content: center; font-family: var(--serif); font-size: 1.1rem;
+      color: #fff; flex-shrink: 0; overflow: hidden;
+    }
+    .byline-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .byline-name { font-weight: 500; font-size: 0.9rem; margin-bottom: 0.1rem; }
+    .byline-meta { font-size: 0.78rem; color: rgba(247,243,236,0.45); letter-spacing: 0.04em; }
+
+    /* ── ARTICLE BODY ── */
+    .article-content {
+      max-width: 680px; margin: 0 auto;
+      padding: 5rem 4vw 7rem;
+    }
+    .article-content p {
+      font-size: 1.05rem; color: var(--ink-soft);
+      line-height: 1.9; margin-bottom: 1.75rem;
+    }
+    .article-content p:first-child {
+      font-size: 1.2rem; color: var(--ink);
+      font-weight: 400; line-height: 1.75;
+    }
+    .article-pullquote {
+      border-left: 3px solid var(--accent);
+      padding: 0.5rem 0 0.5rem 2rem;
+      margin: 3rem 0;
+    }
+    .article-pullquote p {
+      font-family: var(--serif) !important;
+      font-size: 1.4rem !important; color: var(--ink) !important;
+      line-height: 1.45 !important; margin: 0 !important;
+      font-weight: 400;
+    }
+
+    /* ── CTA STRIP ── */
+    .article-cta {
+      background: var(--warm); border: 1px solid var(--line);
+      padding: 2.5rem; margin: 4rem 0 0;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1.5rem;
+    }
+    .article-cta-text h4 {
+      font-family: var(--serif); font-size: 1.3rem; margin-bottom: 0.4rem;
+    }
+    .article-cta-text p { font-size: 0.9rem; color: var(--ink-soft); margin: 0; }
+    .btn-primary {
+      background: var(--accent); color: #fff;
+      border: none; padding: 0.85rem 2rem;
+      font-family: var(--sans); font-size: 0.9rem; font-weight: 500;
+      letter-spacing: 0.04em; cursor: pointer; border-radius: 2px;
+      transition: background 0.2s; text-decoration: none; display: inline-block;
+      white-space: nowrap;
+    }
+    .btn-primary:hover { background: var(--accent-lt); }
+
+    /* ── BACK LINK ── */
+    .back-strip {
+      background: var(--parchment);
+      border-top: 1px solid var(--line);
+      padding: 2rem 4vw; max-width: 680px; margin: 0 auto;
+    }
+    .back-link {
+      font-size: 0.85rem; color: var(--ink-soft); text-decoration: none;
+      letter-spacing: 0.04em; display: inline-flex; align-items: center; gap: 0.5rem;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink); color: rgba(247,243,236,0.5);
+      padding: 3rem 8vw; display: flex;
+      align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--parchment); }
+    .footer-note { font-size: 0.8rem; }
+
+    @media (max-width: 680px) {
+      .nav-links .nav-link { display: none; }
+      .article-cta { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Rick Ng</a>
+  <div class="nav-links">
+    <a href="index.html#about" class="nav-link">About</a>
+    <a href="index.html#articles" class="nav-link">Articles</a>
+    <a href="index.html#book" class="nav-cta">Book Free Session</a>
+  </div>
+</nav>
+
+<!-- ARTICLE HERO -->
+<div class="article-hero">
+  <div class="article-hero-inner">
+    <p class="article-eyebrow">Mindset · 4 min read</p>
+    <h1 class="article-hero-title">People's Need for Calmness</h1>
+    <p class="article-hero-sub">Why the real reason we struggle has nothing to do with resilience — and everything to do with what we were trained to expect from life.</p>
+    <div class="article-byline">
+      <div class="byline-avatar">
+        <img src="src/assets/bio-pic.jpg" alt="Rick Ng" onerror="this.style.display='none'" />
+        R
+      </div>
+      <div>
+        <p class="byline-name">Rick Ng</p>
+        <p class="byline-meta">Life &amp; Mindset Coach · 2025</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ARTICLE CONTENT -->
+<div class="article-content">
+
+  <p>Who do humans — or people — face something called struggle? I can see many gurus and speakers out there taking this topic and bringing in the element of growth. It is an opportunity to be a better self, because struggle also means challenge — it makes us do something we most likely have not done before, hence the result is, again, growth.</p>
+
+  <p>I am here to share my own thought on this: we feel struggle because humans, in general, have a need for calmness. Our minds and expectations were like that from the day we were born. As babies and young kids, we live through our lives with minimal friction and challenges as compared to the adults we are today — where we need to ensure what we do provides us a means to survive.</p>
+
+  <p>I would even go as far as to say that we were trained to live in a problem-less world, where happiness stems from. We are — or were — happy because it is simple: there were no problems in our lives, nothing comes poking at our normalcy bubble.</p>
+
+  <div class="article-pullquote">
+    <p>"We crave for calmness but the world gives us turbulence. The end result is tiredness, burnout, and frustration."</p>
+  </div>
+
+  <p>Fast forward to our adult working lives — often times we go home unhappy. The struggles of work and life drain our mental and physical energy. We were not fulfilled; rather, we were un-fulfilled. The answer, to me, is very simple. We crave for calmness but the world gives us turbulence, and the end result is tiredness, burnout, and frustration.</p>
+
+  <p>The cure here is to alter that need — change up that expectation in you, and in contrast, learn to expect the opposite of calmness. When you wake up tomorrow morning, instead of telling yourself it will be a good day or that things will be better today, just try for once: tell yourself it will be a bumpy ride in the office. Tell yourself your client or manager will have obvious wrinkles on their face when they yell at or reprimand you.</p>
+
+  <p>This form of thoughtful imagination and mental preparation — for one day, or at the very least as a starting point — begins to change your expectations for the day. And if you want to truly grow, truly start to train your mind and emotions (which I have a whole other topic and set of ideas to share on), continue to imagine this simulation of the day playing out. See what kinds of changes you can make. And just a reminder: don't repeat the same things and expect different results.</p>
+
+  <div class="article-cta">
+    <div class="article-cta-text">
+      <h4>Want to explore this further?</h4>
+      <p>Book a free 15-minute session with Rick — no pitch, just a real conversation.</p>
+    </div>
+    <a href="index.html#book" class="btn-primary">Book Free Session</a>
+  </div>
+
+  <div class="back-strip">
+    <a href="index.html#articles" class="back-link">← Back to all articles</a>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Rick Ng — Coaching</div>
+  <p class="footer-note">© 2025 Rick Ng. Based in Penang, Malaysia.</p>
+</footer>
+
+</body>
+</html>
