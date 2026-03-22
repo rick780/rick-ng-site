@@ -14,8 +14,13 @@ const getSafeConfig = () => {
       // Use bracket notation for environment safety across different build targets
       configStr = import.meta.env['VITE_FIREBASE_CONFIG'];
     }
-    return configStr ? JSON.parse(configStr) : null;
+    
+    if (!configStr) return null;
+    
+    // Attempt to parse - if this fails, the catch block will return null
+    return JSON.parse(configStr);
   } catch (e) {
+    console.error("Firebase Config Parsing Error. Please check your Vercel Environment Variables for valid JSON format.", e);
     return null;
   }
 };
@@ -26,9 +31,10 @@ const getAppId = () => {
   if (typeof __app_id !== 'undefined' && __app_id) return __app_id;
   try {
     const envId = import.meta.env['VITE_APP_ID'];
-    return envId || 'rick-ng-coaching-v2';
+    // Defaulting to the project ID found in your screenshot for better path alignment
+    return envId || 'rick-ng-coaching';
   } catch (e) {
-    return 'rick-ng-coaching-v2';
+    return 'rick-ng-coaching';
   }
 };
 
@@ -62,7 +68,7 @@ export default function App() {
             <AlertTriangle size={48} />
           </div>
           <h1 className="text-2xl font-bold text-slate-900 mb-2">Configuration Missing</h1>
-          <p className="text-slate-600 mb-6">Your site is live, but it doesn't know which database to talk to yet.</p>
+          <p className="text-slate-600 mb-6">Your site is live, but it doesn't know which database to talk to yet. This is usually due to an invalid or missing JSON string in Vercel.</p>
           <div className="bg-slate-900 text-slate-300 p-4 rounded-xl font-mono text-[10px] mb-6 overflow-hidden text-ellipsis whitespace-nowrap">
             Check Vercel Project Settings {'->'} Environment Variables
           </div>
@@ -100,7 +106,7 @@ export default function App() {
   useEffect(() => {
     if (!user || !db || !appId) return;
     
-    // Path: /artifacts/{appId}/public/data/{collectionName} (5 segments total - Odd number)
+    // Path: /artifacts/{appId}/public/data/{collectionName}
     const leadsRef = collection(db, 'artifacts', appId, 'public', 'data', 'newsletter_leads');
     const unsubLeads = onSnapshot(leadsRef, 
       (s) => setLeads(s.docs.map(d => ({ id: d.id, ...d.data() }))),
