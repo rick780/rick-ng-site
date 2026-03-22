@@ -35,14 +35,33 @@ export default function App() {
   const [bookingStatus, setBookingStatus] = useState('idle');
 
   // BULLETPROOF STYLE INJECTION
-  // This ensures Tailwind works even if your Vercel build environment isn't configured for it.
+  // We inject both the Tailwind CDN AND a fallback CSS style block
   useEffect(() => {
-    const id = 'tailwind-cdn-script';
-    if (!document.getElementById(id)) {
+    // 1. Inject Tailwind CDN
+    const scriptId = 'tailwind-cdn-script';
+    if (!document.getElementById(scriptId)) {
       const script = document.createElement('script');
-      script.id = id;
+      script.id = scriptId;
       script.src = "https://cdn.tailwindcss.com";
       document.head.appendChild(script);
+    }
+
+    // 2. Inject Critical Fallback CSS (In case Tailwind script is blocked or slow)
+    const styleId = 'fallback-styles';
+    if (!document.getElementById(styleId)) {
+      const style = document.createElement('style');
+      style.id = styleId;
+      style.innerHTML = `
+        body { margin: 0; font-family: sans-serif; background-color: #fafafa; color: #1a1a1a; }
+        .fallback-container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        nav { background: white; border-bottom: 1px solid #eee; padding: 1rem; position: fixed; width: 100%; top: 0; z-index: 100; }
+        header { padding-top: 150px; text-align: center; }
+        .btn-primary { background: #2563eb; color: white; padding: 1rem 2rem; border-radius: 0.75rem; border: none; cursor: pointer; font-weight: bold; }
+        section { padding: 4rem 1rem; border-radius: 2rem; margin: 1rem 0; }
+        .bg-dark { background: #0f172a; color: white; }
+        input, textarea { width: 100%; padding: 1rem; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 0.5rem; }
+      `;
+      document.head.appendChild(style);
     }
   }, []);
 
@@ -109,7 +128,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-[#fafafa] text-slate-900 font-sans selection:bg-blue-100">
+    <div className="min-h-screen bg-[#fafafa] text-slate-900 font-sans selection:bg-blue-100 overflow-x-hidden">
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
@@ -128,11 +147,11 @@ export default function App() {
       {/* Hero Section */}
       <header className="pt-40 pb-24 px-6 bg-white">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-100 mb-8">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-100 mb-8 mx-auto">
             <Sparkles size={12} className="text-blue-600" />
             <span className="text-[10px] font-bold uppercase tracking-widest text-blue-700">Practical Antifragility</span>
           </div>
-          <h1 className="text-4xl md:text-7xl font-black tracking-tight text-slate-900 leading-tight mb-8">
+          <h1 className="text-4xl md:text-7xl font-black tracking-tight text-slate-900 leading-[1.1] mb-8">
             Lead when the <span className="text-blue-600 italic">bumpy ride</span> is no longer optional.
           </h1>
           <p className="text-lg md:text-xl text-slate-500 leading-relaxed max-w-2xl mx-auto mb-10">
@@ -184,11 +203,11 @@ export default function App() {
       {/* Quote */}
       <section className="py-24 px-6">
         <div className="max-w-3xl mx-auto text-center">
-          <blockquote className="text-xl md:text-3xl font-medium leading-snug text-slate-800 italic mb-8">
+          <blockquote className="text-xl md:text-2xl lg:text-3xl font-medium leading-relaxed text-slate-800 italic mb-8 px-4">
             "Rick's coaching didn't take away the stress; it made the stress useful. I feel more capable in a crisis than I ever did in calm waters."
           </blockquote>
           <div className="font-bold text-slate-900">CTO, FinTech Series B</div>
-          <div className="text-xs text-slate-500 uppercase tracking-widest mt-1">Leadership Coaching Client</div>
+          <div className="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Leadership Coaching Client</div>
         </div>
       </section>
 
@@ -197,7 +216,7 @@ export default function App() {
         <div className="max-w-xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-black mb-3 tracking-tight text-blue-600 italic">The 15-Minute Reset</h2>
-            <p className="text-slate-500 font-medium">A high-impact diagnostic call to stabilize your situation.</p>
+            <p className="text-slate-500 font-medium text-sm">A high-impact diagnostic call to stabilize your situation.</p>
           </div>
 
           {bookingStatus === 'success' ? (
@@ -251,7 +270,7 @@ export default function App() {
               type="email" 
               required 
               placeholder="Email" 
-              className="flex-grow bg-white border border-slate-200 rounded-lg px-4 py-2 outline-none"
+              className="flex-grow bg-white border border-slate-200 rounded-lg px-4 py-2 outline-none text-sm"
               onChange={e => setNewsletterEmail(e.target.value)}
             />
             <button className="bg-blue-600 text-white px-6 py-2 rounded-lg font-bold text-sm">Join</button>
