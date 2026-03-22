@@ -34,35 +34,47 @@ export default function App() {
   const [bookingData, setBookingData] = useState({ name: '', email: '', turbulence: '' });
   const [bookingStatus, setBookingStatus] = useState('idle');
 
-  // BULLETPROOF STYLE INJECTION
-  // We inject both the Tailwind CDN AND a fallback CSS style block
   useEffect(() => {
-    // 1. Inject Tailwind CDN
-    const scriptId = 'tailwind-cdn-script';
-    if (!document.getElementById(scriptId)) {
+    // 1. Set Tailwind Config for CDN
+    window.tailwind = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              blue: '#2563eb',
+              dark: '#0f172a'
+            }
+          }
+        }
+      }
+    };
+
+    // 2. Inject Tailwind CDN if missing
+    if (!document.getElementById('tailwind-cdn')) {
       const script = document.createElement('script');
-      script.id = scriptId;
+      script.id = 'tailwind-cdn';
       script.src = "https://cdn.tailwindcss.com";
       document.head.appendChild(script);
     }
 
-    // 2. Inject Critical Fallback CSS (In case Tailwind script is blocked or slow)
-    const styleId = 'fallback-styles';
-    if (!document.getElementById(styleId)) {
-      const style = document.createElement('style');
-      style.id = styleId;
-      style.innerHTML = `
-        body { margin: 0; font-family: sans-serif; background-color: #fafafa; color: #1a1a1a; }
-        .fallback-container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
-        nav { background: white; border-bottom: 1px solid #eee; padding: 1rem; position: fixed; width: 100%; top: 0; z-index: 100; }
-        header { padding-top: 150px; text-align: center; }
-        .btn-primary { background: #2563eb; color: white; padding: 1rem 2rem; border-radius: 0.75rem; border: none; cursor: pointer; font-weight: bold; }
-        section { padding: 4rem 1rem; border-radius: 2rem; margin: 1rem 0; }
-        .bg-dark { background: #0f172a; color: white; }
-        input, textarea { width: 100%; padding: 1rem; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 0.5rem; }
-      `;
-      document.head.appendChild(style);
-    }
+    // 3. Global CSS Fixes
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+      body { 
+        margin: 0; 
+        font-family: 'Inter', sans-serif; 
+        background-color: #fafafa; 
+        -webkit-font-smoothing: antialiased;
+      }
+      .hero-title {
+        line-height: 1.05 !important;
+      }
+      @media (max-width: 640px) {
+        .hero-title { font-size: 2.5rem !important; }
+      }
+    `;
+    document.head.appendChild(style);
   }, []);
 
   useEffect(() => {
@@ -116,28 +128,23 @@ export default function App() {
         <div className="max-w-md bg-white p-10 rounded-3xl shadow-xl border border-slate-200">
           <AlertTriangle size={48} className="text-amber-500 mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-slate-900 mb-2">Configuration Required</h1>
-          <p className="text-slate-500 mb-6">
-            Ensure the environment variable <code className="bg-slate-100 px-1 rounded text-blue-600">VITE_FIREBASE_CONFIG</code> is set in Vercel.
-          </p>
-          <button onClick={() => window.location.reload()} className="px-6 py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-all">
-            Check Again
-          </button>
+          <p className="text-slate-500 mb-6 italic text-sm">VITE_FIREBASE_CONFIG missing in Vercel settings.</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#fafafa] text-slate-900 font-sans selection:bg-blue-100 overflow-x-hidden">
+    <div className="min-h-screen bg-[#fafafa] text-slate-900 overflow-x-hidden w-full">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="font-black text-xl tracking-tighter italic text-slate-900">
+      <nav className="fixed top-0 left-0 right-0 z-[100] bg-white/90 backdrop-blur-xl border-b border-slate-100 h-20">
+        <div className="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
+          <div className="font-black text-2xl tracking-tighter italic text-slate-900 flex items-center gap-1">
             RICK<span className="text-blue-600">NG</span>
           </div>
           <button 
             onClick={() => document.getElementById('reset')?.scrollIntoView({ behavior: 'smooth' })}
-            className="text-[10px] font-bold uppercase tracking-widest bg-slate-900 text-white px-5 py-2.5 rounded-full hover:bg-blue-600 transition-all flex items-center gap-2"
+            className="hidden sm:flex text-[10px] font-bold uppercase tracking-widest bg-slate-900 text-white px-6 py-3 rounded-full hover:bg-blue-600 transition-all items-center gap-2"
           >
             Request Reset <ArrowRight size={12} />
           </button>
@@ -145,85 +152,85 @@ export default function App() {
       </nav>
 
       {/* Hero Section */}
-      <header className="pt-40 pb-24 px-6 bg-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-100 mb-8 mx-auto">
-            <Sparkles size={12} className="text-blue-600" />
-            <span className="text-[10px] font-bold uppercase tracking-widest text-blue-700">Practical Antifragility</span>
+      <header className="relative pt-32 pb-20 sm:pt-48 sm:pb-32 px-6 bg-white overflow-hidden">
+        <div className="max-w-5xl mx-auto text-center relative z-10">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 mb-8 animate-fade-in">
+            <Sparkles size={14} className="text-blue-600" />
+            <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-blue-700">Practical Antifragility</span>
           </div>
-          <h1 className="text-4xl md:text-7xl font-black tracking-tight text-slate-900 leading-[1.1] mb-8">
-            Lead when the <span className="text-blue-600 italic">bumpy ride</span> is no longer optional.
+          
+          <h1 className="hero-title text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter text-slate-900 mb-10">
+            Lead when the <br className="hidden sm:block" />
+            <span className="text-blue-600 italic">bumpy ride</span> is here.
           </h1>
-          <p className="text-lg md:text-xl text-slate-500 leading-relaxed max-w-2xl mx-auto mb-10">
-            I help high-variance leaders build the mental architecture to stay steady when the roadmap fails.
+          
+          <p className="text-lg sm:text-xl text-slate-500 leading-relaxed max-w-2xl mx-auto mb-12 px-4">
+            Mental architecture for high-variance leaders who need to stay steady when the roadmap fails.
           </p>
-          <button 
-            onClick={() => document.getElementById('reset')?.scrollIntoView({ behavior: 'smooth' })}
-            className="px-8 py-5 bg-blue-600 text-white font-bold rounded-2xl shadow-xl shadow-blue-200 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3 mx-auto"
-          >
-            Start Your 15-Minute Reset <ArrowRight size={18} />
-          </button>
+          
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <button 
+              onClick={() => document.getElementById('reset')?.scrollIntoView({ behavior: 'smooth' })}
+              className="w-full sm:w-auto px-10 py-5 bg-blue-600 text-white font-bold rounded-2xl shadow-2xl shadow-blue-200 hover:bg-blue-700 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3"
+            >
+              Start 15-Minute Reset <ArrowRight size={20} />
+            </button>
+          </div>
         </div>
       </header>
 
-      {/* Philosophy */}
-      <section className="py-24 px-6 bg-slate-900 text-white rounded-[2.5rem] md:rounded-[4rem] mx-4 my-4">
-        <div className="max-w-5xl mx-auto">
-          <div className="mb-16 text-center md:text-left">
-            <h2 className="text-3xl md:text-5xl font-black mb-6 italic tracking-tight">The "Normalcy" Trap</h2>
-            <p className="text-lg text-slate-400 leading-relaxed max-w-2xl">
-              Burnout isn't caused by hard work. It's caused by the friction between your expectation of <span className="text-white font-semibold">calm</span> and the reality of <span className="text-blue-400 font-semibold">chaos</span>.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-blue-500/50 transition-all">
-              <div className="w-12 h-12 rounded-xl bg-blue-600 flex items-center justify-center mb-6">
-                <ShieldAlert size={24} />
-              </div>
-              <h3 className="text-xl font-bold mb-3">Pop the Bubble</h3>
-              <p className="text-slate-400 leading-relaxed text-sm">
-                We stop wishing for "good days" and start simulating the "wrinkles" so they never catch you off guard.
+      {/* The Core Shift */}
+      <section className="py-24 px-4 sm:px-6">
+        <div className="max-w-6xl mx-auto bg-slate-900 rounded-[3rem] p-8 sm:p-20 text-white relative overflow-hidden">
+          <div className="relative z-10">
+            <h2 className="text-3xl sm:text-5xl font-black mb-8 italic tracking-tight">The "Normalcy" Trap</h2>
+            <div className="grid lg:grid-cols-2 gap-12 items-start">
+              <p className="text-xl text-slate-400 leading-relaxed">
+                Burnout isn't caused by hard work. It's caused by the friction between your expectation of <span className="text-white">calm</span> and the reality of <span className="text-blue-400">chaos</span>.
               </p>
-            </div>
-
-            <div className="p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-blue-500/50 transition-all">
-              <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center mb-6 shadow-lg">
-                <Anchor size={24} className="text-slate-900" />
+              <div className="grid sm:grid-cols-2 gap-6">
+                <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
+                  <ShieldAlert className="text-blue-500 mb-4" />
+                  <h3 className="font-bold mb-2">Pop the Bubble</h3>
+                  <p className="text-sm text-slate-400">Stop wishing for good days. Start simulating the wrinkles.</p>
+                </div>
+                <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
+                  <Anchor className="text-white mb-4" />
+                  <h3 className="font-bold mb-2">Lead with Weight</h3>
+                  <p className="text-sm text-slate-400">Become the anchor when stakes are real and high-variance.</p>
+                </div>
               </div>
-              <h3 className="text-xl font-bold mb-3">Lead with Weight</h3>
-              <p className="text-slate-400 leading-relaxed text-sm">
-                Become the anchor for your team when the environment is high-variance and the stakes are real.
-              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Quote */}
-      <section className="py-24 px-6">
-        <div className="max-w-3xl mx-auto text-center">
-          <blockquote className="text-xl md:text-2xl lg:text-3xl font-medium leading-relaxed text-slate-800 italic mb-8 px-4">
-            "Rick's coaching didn't take away the stress; it made the stress useful. I feel more capable in a crisis than I ever did in calm waters."
+      {/* Social Proof */}
+      <section className="py-24 px-6 border-y border-slate-100 bg-white">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="flex justify-center gap-1 mb-6">
+            {[1,2,3,4,5].map(i => <div key={i} className="w-1.5 h-1.5 rounded-full bg-blue-600" />)}
+          </div>
+          <blockquote className="text-2xl sm:text-3xl font-medium text-slate-800 italic mb-10 leading-tight">
+            "Rick didn't take away the stress; he made it useful. I feel more capable in a crisis than I ever did in calm waters."
           </blockquote>
-          <div className="font-bold text-slate-900">CTO, FinTech Series B</div>
-          <div className="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Leadership Coaching Client</div>
+          <div className="font-bold text-slate-900 uppercase tracking-widest text-xs">CTO, Series B Fintech</div>
         </div>
       </section>
 
       {/* Booking Form */}
-      <section id="reset" className="py-24 px-6 bg-white border-t border-slate-100">
+      <section id="reset" className="py-24 px-6">
         <div className="max-w-xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-black mb-3 tracking-tight text-blue-600 italic">The 15-Minute Reset</h2>
-            <p className="text-slate-500 font-medium text-sm">A high-impact diagnostic call to stabilize your situation.</p>
+            <h2 className="text-3xl font-black mb-3 tracking-tight italic">15-Minute Reset</h2>
+            <p className="text-slate-500 text-sm">A diagnostic call to stabilize your current leadership situation.</p>
           </div>
 
           {bookingStatus === 'success' ? (
-            <div className="bg-blue-50 border border-blue-100 p-10 rounded-3xl text-center">
+            <div className="bg-blue-50 border border-blue-100 p-10 rounded-[2rem] text-center animate-fade-in">
               <CheckCircle2 size={48} className="text-blue-600 mx-auto mb-4" />
-              <h3 className="text-xl font-black text-slate-900 mb-2">Message Sent.</h3>
-              <p className="text-slate-500 text-sm">I'll reach out within 24 hours.</p>
+              <h3 className="text-xl font-black text-slate-900 mb-2">Confirmed.</h3>
+              <p className="text-slate-500 text-sm">I'll email you personally within 24 hours.</p>
             </div>
           ) : (
             <form onSubmit={handleBooking} className="space-y-4">
@@ -231,52 +238,52 @@ export default function App() {
                 <input 
                   required 
                   placeholder="Name" 
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-5 py-4 outline-none focus:bg-white focus:border-blue-600 transition-all" 
+                  className="w-full bg-white border border-slate-200 rounded-xl px-5 py-4 outline-none focus:border-blue-600 transition-all text-sm" 
                   onChange={e => setBookingData({...bookingData, name: e.target.value})} 
                 />
                 <input 
                   required 
                   type="email" 
                   placeholder="Work Email" 
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-5 py-4 outline-none focus:bg-white focus:border-blue-600 transition-all" 
+                  className="w-full bg-white border border-slate-200 rounded-xl px-5 py-4 outline-none focus:border-blue-600 transition-all text-sm" 
                   onChange={e => setBookingData({...bookingData, email: e.target.value})} 
                 />
               </div>
               <textarea 
                 required 
-                placeholder="Briefly describe the 'turbulence' you're facing..." 
-                rows={3}
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-5 py-4 outline-none focus:bg-white focus:border-blue-600 transition-all resize-none" 
+                placeholder="Where is the turbulence right now?" 
+                rows={4}
+                className="w-full bg-white border border-slate-200 rounded-xl px-5 py-4 outline-none focus:border-blue-600 transition-all text-sm resize-none" 
                 onChange={e => setBookingData({...bookingData, turbulence: e.target.value})} 
               />
               <button 
                 disabled={bookingStatus === 'loading'} 
-                className="w-full py-5 bg-slate-900 text-white font-bold rounded-xl hover:bg-blue-600 transition-all shadow-lg flex items-center justify-center gap-2 uppercase tracking-widest text-xs"
+                className="w-full py-5 bg-slate-900 text-white font-bold rounded-xl hover:bg-blue-600 transition-all shadow-xl flex items-center justify-center gap-3 uppercase tracking-widest text-[10px]"
               >
-                {bookingStatus === 'loading' ? 'Sending...' : <>Request Reset Call <Zap size={14} /></>}
+                {bookingStatus === 'loading' ? 'Processing...' : <>Secure Call Slot <Zap size={14} /></>}
               </button>
             </form>
           )}
         </div>
       </section>
 
-      {/* Footer / Newsletter */}
-      <footer className="py-16 px-6 bg-[#f8f9fa] text-center border-t border-slate-200">
+      {/* Footer */}
+      <footer className="py-20 px-6 bg-white border-t border-slate-100 text-center">
         <div className="max-w-md mx-auto">
-          <h4 className="font-bold text-slate-900 mb-2">Get the Weekly Reset</h4>
-          <p className="text-sm text-slate-500 mb-6">One mental model for high-stakes leadership.</p>
-          <form onSubmit={handleNewsletter} className="flex gap-2 mb-10">
+          <h4 className="font-bold text-slate-900 mb-2">The Weekly Reset</h4>
+          <p className="text-sm text-slate-500 mb-8 italic">One mental model for the high-variance leader.</p>
+          <form onSubmit={handleNewsletter} className="flex flex-col sm:flex-row gap-2 mb-12">
             <input 
               type="email" 
               required 
-              placeholder="Email" 
-              className="flex-grow bg-white border border-slate-200 rounded-lg px-4 py-2 outline-none text-sm"
+              placeholder="Your email" 
+              className="flex-grow bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 outline-none text-sm"
               onChange={e => setNewsletterEmail(e.target.value)}
             />
-            <button className="bg-blue-600 text-white px-6 py-2 rounded-lg font-bold text-sm">Join</button>
+            <button className="bg-blue-600 text-white px-8 py-3 rounded-xl font-bold text-sm hover:bg-slate-900 transition-colors">Join</button>
           </form>
-          <div className="text-slate-400 text-[9px] uppercase tracking-[0.3em] font-bold">
-            Rick Ng Coaching // rickngcoaching.com
+          <div className="text-slate-400 text-[9px] uppercase tracking-[0.4em] font-black">
+            Rick Ng Coaching // EST. 2024
           </div>
         </div>
       </footer>
