@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Boss Didn't Stress You Out. You Did. — Rick Ng</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:       #1a1510;
+      --ink-soft:  #4a3f35;
+      --parchment: #f7f3ec;
+      --warm:      #ede7db;
+      --accent:    #b5572a;
+      --accent-lt: #d4784a;
+      --line:      rgba(26,21,16,0.12);
+      --serif:     'DM Serif Display', Georgia, serif;
+      --sans:      'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--parchment);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 6vw;
+      background: rgba(247,243,236,0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-logo {
+      font-family: var(--serif); font-size: 1.15rem;
+      letter-spacing: 0.01em; text-decoration: none; color: var(--ink);
+    }
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
+    .nav-link {
+      font-size: 0.85rem; color: var(--ink-soft); text-decoration: none;
+      font-weight: 400; letter-spacing: 0.02em; transition: color 0.2s;
+    }
+    .nav-link:hover { color: var(--accent); }
+    .nav-cta {
+      background: var(--ink); color: var(--parchment);
+      border: none; padding: 0.55rem 1.4rem;
+      font-family: var(--sans); font-size: 0.85rem; font-weight: 500;
+      letter-spacing: 0.04em; cursor: pointer; border-radius: 2px;
+      transition: background 0.2s; text-decoration: none; display: inline-block;
+    }
+    .nav-cta:hover { background: var(--accent); }
+
+    /* ── ARTICLE HERO ── */
+    .article-hero {
+      padding-top: 72px;
+      background: var(--ink);
+      color: var(--parchment);
+    }
+    .article-hero-inner {
+      max-width: 780px; margin: 0 auto;
+      padding: 6rem 4vw 4rem;
+    }
+    .article-eyebrow {
+      font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent-lt); font-weight: 500; margin-bottom: 1.5rem;
+    }
+    .article-hero-title {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      line-height: 1.1; margin-bottom: 1.75rem;
+    }
+    .article-hero-title em { font-style: italic; color: var(--accent-lt); }
+    .article-hero-sub {
+      font-size: 1.1rem; color: rgba(247,243,236,0.65);
+      line-height: 1.7; margin-bottom: 2.5rem; max-width: 600px;
+    }
+    .article-byline {
+      display: flex; align-items: center; gap: 1rem;
+      padding-top: 2rem; border-top: 1px solid rgba(247,243,236,0.12);
+    }
+    .byline-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--accent); display: flex; align-items: center;
+      justify-content: center; font-family: var(--serif); font-size: 1.1rem;
+      color: #fff; flex-shrink: 0; overflow: hidden;
+    }
+    .byline-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .byline-name { font-weight: 500; font-size: 0.9rem; margin-bottom: 0.1rem; }
+    .byline-meta { font-size: 0.78rem; color: rgba(247,243,236,0.45); letter-spacing: 0.04em; }
+
+    /* ── SCENE SETTER ── */
+    .scene {
+      background: var(--warm); border-left: 3px solid var(--accent);
+      padding: 2.5rem 2.5rem 2.5rem 2.5rem;
+      margin: 0 auto 0; max-width: 680px;
+      margin-top: 0;
+    }
+    .scene p {
+      font-family: var(--serif); font-size: 1.15rem;
+      color: var(--ink); line-height: 1.75; margin-bottom: 1rem;
+    }
+    .scene p:last-child { margin-bottom: 0; }
+    .scene-label {
+      font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent); font-weight: 500; margin-bottom: 1rem;
+      display: block;
+    }
+
+    /* ── ARTICLE BODY ── */
+    .article-content {
+      max-width: 680px; margin: 0 auto;
+      padding: 4rem 4vw 7rem;
+    }
+
+    /* base paragraph */
+    .article-content p {
+      font-size: 1.05rem; color: var(--ink-soft);
+      line-height: 1.9; margin-bottom: 1.75rem;
+    }
+
+    /* section headings */
+    .article-content h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: var(--ink); line-height: 1.2;
+      margin: 3.5rem 0 1.25rem;
+    }
+
+    /* pull quote — large centred statement */
+    .pullquote {
+      border-left: 3px solid var(--accent);
+      padding: 0.5rem 0 0.5rem 2rem;
+      margin: 3rem 0;
+    }
+    .pullquote p {
+      font-family: var(--serif) !important;
+      font-size: clamp(1.3rem, 2.5vw, 1.65rem) !important;
+      color: var(--ink) !important;
+      line-height: 1.4 !important;
+      margin: 0 !important;
+    }
+
+    /* big stat / standalone emphasis line */
+    .big-line {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--accent); line-height: 1.2;
+      margin: 3rem 0; display: block;
+    }
+
+    /* callout box — highlight an idea */
+    .callout {
+      background: var(--ink); color: var(--parchment);
+      padding: 2.25rem 2.5rem; margin: 3rem 0;
+    }
+    .callout p {
+      font-size: 1rem !important; color: rgba(247,243,236,0.8) !important;
+      margin-bottom: 0.85rem !important;
+    }
+    .callout p:last-child { margin-bottom: 0 !important; }
+    .callout strong {
+      color: var(--parchment); font-weight: 500;
+    }
+    .callout-label {
+      font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent-lt); font-weight: 500; margin-bottom: 1rem;
+      display: block;
+    }
+
+    /* inline accent text */
+    .article-content strong { color: var(--ink); font-weight: 500; }
+    .article-content em.accent { font-style: normal; color: var(--accent); font-weight: 500; }
+
+    /* closing reflection box */
+    .reflection {
+      background: var(--warm); border: 1px solid var(--line);
+      padding: 2.25rem 2.5rem; margin: 3.5rem 0 0;
+    }
+    .reflection-label {
+      font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent); font-weight: 500; margin-bottom: 1.25rem; display: block;
+    }
+    .reflection p {
+      font-size: 1rem !important; color: var(--ink-soft) !important;
+      margin-bottom: 1rem !important;
+    }
+    .reflection p:last-child { margin-bottom: 0 !important; }
+    .reflection p.final {
+      font-family: var(--serif); font-size: 1.1rem !important;
+      color: var(--ink) !important; font-style: italic;
+    }
+
+    /* ── CTA STRIP ── */
+    .article-cta {
+      background: var(--warm); border: 1px solid var(--line);
+      padding: 2.5rem; margin: 3rem 0 0;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1.5rem;
+    }
+    .article-cta-text h4 {
+      font-family: var(--serif); font-size: 1.3rem; margin-bottom: 0.4rem;
+    }
+    .article-cta-text p { font-size: 0.9rem; color: var(--ink-soft); margin: 0; }
+    .btn-primary {
+      background: var(--accent); color: #fff;
+      border: none; padding: 0.85rem 2rem;
+      font-family: var(--sans); font-size: 0.9rem; font-weight: 500;
+      letter-spacing: 0.04em; cursor: pointer; border-radius: 2px;
+      transition: background 0.2s; text-decoration: none; display: inline-block;
+      white-space: nowrap;
+    }
+    .btn-primary:hover { background: var(--accent-lt); }
+
+    /* ── BACK / FOOTER ── */
+    .back-strip {
+      border-top: 1px solid var(--line);
+      padding: 2rem 0; margin-top: 3rem;
+    }
+    .back-link {
+      font-size: 0.85rem; color: var(--ink-soft); text-decoration: none;
+      letter-spacing: 0.04em; display: inline-flex; align-items: center; gap: 0.5rem;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+
+    footer {
+      background: var(--ink); color: rgba(247,243,236,0.5);
+      padding: 3rem 8vw; display: flex;
+      align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--parchment); }
+    .footer-note { font-size: 0.8rem; }
+
+    @media (max-width: 680px) {
+      .nav-links .nav-link { display: none; }
+      .article-cta { flex-direction: column; }
+      .scene { padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Rick Ng</a>
+  <div class="nav-links">
+    <a href="index.html#about" class="nav-link">About</a>
+    <a href="index.html#articles" class="nav-link">Articles</a>
+    <a href="index.html#book" class="nav-cta">Book Free Session</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="article-hero">
+  <div class="article-hero-inner">
+    <p class="article-eyebrow">Leadership & Emotions · 7 min read</p>
+    <h1 class="article-hero-title">Your Boss Didn't<br>Stress You Out.<br><em>You Did.</em></h1>
+    <p class="article-hero-sub">The most uncomfortable truth about workplace stress — and why accepting it gives you more power than you think.</p>
+    <div class="article-byline">
+      <div class="byline-avatar">
+        <img src="src/assets/bio-pic.jpg" alt="Rick Ng" onerror="this.style.display='none'" />
+        R
+      </div>
+      <div>
+        <p class="byline-name">Rick Ng</p>
+        <p class="byline-meta">Life &amp; Mindset Coach · 2025</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCENE SETTER -->
+<div style="background: var(--warm); padding: 4rem 4vw;">
+  <div class="scene">
+    <span class="scene-label">It was a Wednesday. A working day.</span>
+    <p>I had just spent two hours driving downtown to visit my mother at the nursing home and back. She has dementia now — a development that arrived quietly and then all at once, the way these things do. The mental toll of sitting with her, of watching her be a stranger in her own mind, was already more than enough for one afternoon.</p>
+    <p>Then my phone rang.</p>
+    <p style="font-weight:500; color:var(--ink);">"You have to travel to China next week. There's a big customer issue. We need you there."</p>
+    <p>My boss. The kind of voice that doesn't preface requests with context or apology. Just the directive, delivered with the confidence that it would be received and acted on.</p>
+    <p>I sat in my car for a moment. And I had a choice to make — not about China, not yet. About what I was going to do with what I was feeling right then.</p>
+  </div>
+</div>
+
+<!-- ARTICLE BODY -->
+<div class="article-content">
+
+  <h2>The Real Question Isn't About Your Boss</h2>
+
+  <p>Let me ask you something honestly: when a moment like that happens to you — when an unreasonable request lands on top of an already heavy day — <strong>where does your mind go first?</strong></p>
+
+  <p>Most people go straight to the external. The boss who didn't check in before calling. The company that doesn't care about work-life balance. The situation that is, objectively, unfair. And they're not wrong — those things may all be true.</p>
+
+  <div class="pullquote">
+    <p>The external world doesn't put emotions inside you. You generate them yourself — in response to what you perceive, filtered through what you expect.</p>
+  </div>
+
+  <p>But here's what I've come to understand, through years of working inside large corporations and through one particularly brutal year of personal crisis: the external world doesn't put emotions inside you. You generate them yourself. In response to what you perceive. Filtered through what you expect.</p>
+
+  <h2>The Expectation Nobody Talks About</h2>
+
+  <p>From the time we are young, most of us are quietly trained to expect a baseline of calm. School, when it works, is structured and predictable. Home, when it's healthy, provides safety and routine. Even our early careers tend to come with onboarding, mentors, and a period of grace.</p>
+
+  <div class="callout">
+    <span class="callout-label">What nobody tells you</span>
+    <p><strong>"By the way — the further you go in your career, the more chaotic and unreasonable your environment will become."</strong></p>
+    <p>And that's not a sign that something has gone wrong. That's just Tuesday.</p>
+  </div>
+
+  <p>So we carry this unchallenged expectation of calm into our leadership roles. And every time reality doesn't meet that expectation — every unreasonable deadline, every thoughtless phone call, every impossible quarter — our nervous system registers it as a threat.</p>
+
+  <span class="big-line">Not an inconvenience.<br>A threat.</span>
+
+  <p>That's the gap nobody is addressing. Not the chaos itself — but the expectation that was always miscalibrated.</p>
+
+  <h2>The Awful and Liberating Truth</h2>
+
+  <p>Here is something that stings a little when you first hear it, and then becomes one of the most freeing ideas you'll ever encounter:</p>
+
+  <div class="pullquote">
+    <p>Nobody else is holding your experience. Which means nobody else has the power to take it away.</p>
+  </div>
+
+  <p>Nobody else can feel what you feel in that moment. The colleague who overheard the phone call doesn't know you spent your afternoon watching your mother not recognise you. The boss who made the request has no window into your internal state. No one in that office is holding your experience.</p>
+
+  <p>That sounds lonely. And sometimes it is.</p>
+
+  <p>But it also means something important: <strong>if no one else is responsible for putting that feeling inside you, no one else has the power to take it away.</strong> The emotion — the stress, the frustration, the grief folded inside a working Wednesday — was generated by you, in response to a collision between reality and expectation.</p>
+
+  <p>Which means you have <em class="accent">far more agency</em> over it than you've been led to believe.</p>
+
+  <h2>What I Actually Said</h2>
+
+  <p>I didn't explode. I didn't perform cheerful professionalism either. I said the most honest and boundary-respecting thing I could manage in that moment:</p>
+
+  <div class="callout">
+    <p style="font-family: var(--serif); font-size: 1.3rem !important; color: var(--parchment) !important; font-style: italic;">"I can't give you an answer now. I'll get back to you tomorrow."</p>
+    <p>Calm. Clear. Disaster avoided.</p>
+  </div>
+
+  <p>Not because I wasn't feeling anything. I was feeling everything. But I had enough awareness in that moment to recognise that the feeling was mine, that it was telling me something, and that acting from it impulsively would cost me more than the situation already had.</p>
+
+  <p><strong>That awareness is not a personality trait. It is a trained skill.</strong> And it can be built deliberately, by anyone willing to do the work.</p>
+
+  <h2>Training the Mind Is Not What You Think It Is</h2>
+
+  <p>When most people hear "mindset work" they picture journaling, affirmations, breathing exercises. Those things have value. But what I'm describing is something more structural.</p>
+
+  <p>It's about slowly, deliberately updating the baseline expectation your mind carries into every day. Not pretending chaos doesn't hurt. Not toxic positivity. But genuinely recalibrating so that when the hard call comes — and it will come — your first internal response isn't <em>"this shouldn't be happening"</em> but rather:</p>
+
+  <span class="big-line" style="font-size: clamp(1.5rem, 3vw, 2.2rem); color: var(--ink);">"There it is.<br>What do I do now?"</span>
+
+  <p>A mind trained that way is not a passive mind. It's a precise one. It sees clearly when others are reacting. It makes decisions from a steadier place. It leads with intention rather than impulse.</p>
+
+  <p>I've started calling it a <em class="accent">dangerous mind</em> — not because it's aggressive, but because clarity in chaos is genuinely rare, and rare things are powerful.</p>
+
+  <!-- CLOSING REFLECTION -->
+  <div class="reflection">
+    <span class="reflection-label">Before you close this page</span>
+    <p>Think about the last time something at work genuinely got under your skin. A conversation that lingered. A decision that felt like a personal slight. A demand that felt impossible.</p>
+    <p>Now ask yourself honestly: was the event itself the problem? Or was it the collision between what happened and what you <em>expected</em> to happen?</p>
+    <p class="final">And if it was the expectation — even partly — what would it mean for your leadership if you could slowly, quietly begin to change that?</p>
+  </div>
+
+  <!-- CTA -->
+  <div class="article-cta">
+    <div class="article-cta-text">
+      <h4>Ready to work on this?</h4>
+      <p>Book a free 15-minute session with Rick. No pitch — just a real conversation about where you are right now.</p>
+    </div>
+    <a href="index.html#book" class="btn-primary">Book Free Session</a>
+  </div>
+
+  <div class="back-strip">
+    <a href="index.html#articles" class="back-link">← Back to all articles</a>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Rick Ng — Coaching</div>
+  <p class="footer-note">© 2025 Rick Ng. Based in Penang, Malaysia.</p>
+</footer>
+
+</body>
+</html>
