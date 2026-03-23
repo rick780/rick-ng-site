@@ -316,6 +316,45 @@
       font-style: italic;
     }
 
+    /* ── POINT B ── */
+    .pointb { background: var(--parchment); padding: 7rem 8vw; }
+    .pointb-header { max-width: 640px; margin-bottom: 5rem; }
+    .pointb-header .section-title { margin-bottom: 1rem; }
+    .pointb-header p { font-size: 1.05rem; color: var(--ink-soft); line-height: 1.8; }
+    .pointb-items { display: flex; flex-direction: column; }
+    .pointb-item {
+      display: grid; grid-template-columns: 80px 1fr;
+      align-items: start; padding: 3rem 0;
+      border-top: 1px solid var(--line);
+    }
+    .pointb-item:last-child { border-bottom: 1px solid var(--line); }
+    .pointb-num {
+      font-family: var(--serif); font-size: 3.5rem;
+      color: var(--accent); opacity: 0.2; line-height: 1; padding-top: 0.1rem;
+      transition: opacity 0.3s;
+    }
+    .pointb-item:hover .pointb-num { opacity: 0.6; }
+    .pointb-right { padding: 0 2rem 0 0; }
+    .pointb-headline {
+      font-family: var(--serif);
+      font-size: clamp(1.25rem, 2.2vw, 1.65rem);
+      line-height: 1.25; color: var(--ink); margin-bottom: 0.75rem;
+    }
+    .pointb-headline em { font-style: italic; color: var(--accent); }
+    .pointb-body { font-size: 0.95rem; color: var(--ink-soft); line-height: 1.85; }
+    .pointb-closing {
+      margin-top: 4rem; padding: 2.5rem;
+      background: var(--ink); color: var(--parchment);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1.5rem;
+    }
+    .pointb-closing p {
+      font-family: var(--serif); font-size: 1.2rem;
+      line-height: 1.45; max-width: 560px;
+      color: rgba(247,243,236,0.85);
+    }
+    .pointb-closing p em { font-style: italic; color: var(--accent-lt); }
+
     /* ── FORMS SECTION ── */
     .forms-section { background: var(--parchment); padding: 7rem 8vw; }
     .forms-grid {
@@ -380,7 +419,9 @@
       .why-inner,
       .articles-grid { grid-template-columns: 1fr; }
       .article-card.featured { grid-row: span 1; }
-      .offer-cards { gap: 1rem; }
+      .pointb-item { grid-template-columns: 50px 1fr; }
+      .pointb-num { font-size: 2.5rem; }
+      .pointb-closing { flex-direction: column; }
     }
 
     /* ── FADE IN ── */
