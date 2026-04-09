@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>We Act Our Way Into New Feelings — Rick Ng</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:       #1a1510;
+      --ink-soft:  #4a3f35;
+      --parchment: #f7f3ec;
+      --warm:      #ede7db;
+      --accent:    #b5572a;
+      --accent-lt: #d4784a;
+      --green:     #3a6a3a;
+      --green-lt:  #5a9a5a;
+      --line:      rgba(26,21,16,0.12);
+      --serif:     'DM Serif Display', Georgia, serif;
+      --sans:      'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--parchment);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 6vw;
+      background: rgba(247,243,236,0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-logo {
+      font-family: var(--serif); font-size: 1.15rem;
+      letter-spacing: 0.01em; text-decoration: none; color: var(--ink);
+    }
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
+    .nav-link {
+      font-size: 0.85rem; color: var(--ink-soft); text-decoration: none;
+      font-weight: 400; transition: color 0.2s;
+    }
+    .nav-link:hover { color: var(--accent); }
+    .nav-cta {
+      background: var(--ink); color: var(--parchment);
+      padding: 0.55rem 1.4rem; font-family: var(--sans);
+      font-size: 0.85rem; font-weight: 500; letter-spacing: 0.04em;
+      border-radius: 2px; transition: background 0.2s;
+      text-decoration: none; display: inline-block; border: none;
+    }
+    .nav-cta:hover { background: var(--accent); }
+
+    /* ── HERO ── */
+    .article-hero {
+      padding-top: 72px;
+      background: #1a2a1a;
+      color: var(--parchment);
+      position: relative; overflow: hidden;
+    }
+    .hero-gradient {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #1a2a1a 0%, #3a6a3a 100%);
+      opacity: 0.95;
+    }
+    .hero-pattern {
+      position: absolute; inset: 0; opacity: 0.04;
+      background-image: repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 50%);
+      background-size: 12px 12px;
+    }
+    .article-hero-inner {
+      position: relative; z-index: 1;
+      max-width: 780px; margin: 0 auto;
+      padding: 6rem 4vw 4rem;
+    }
+    .article-eyebrow {
+      font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(247,243,236,0.5); font-weight: 500; margin-bottom: 1.5rem;
+    }
+    .article-hero-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      line-height: 1.1; margin-bottom: 1.75rem;
+    }
+    .article-hero-title em { font-style: italic; color: #a8d5a8; }
+    .article-hero-sub {
+      font-size: 1.1rem; color: rgba(247,243,236,0.6);
+      line-height: 1.7; margin-bottom: 2.5rem; max-width: 580px;
+    }
+    .article-byline {
+      display: flex; align-items: center; gap: 1rem;
+      padding-top: 2rem; border-top: 1px solid rgba(247,243,236,0.1);
+    }
+    .byline-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--accent); display: flex; align-items: center;
+      justify-content: center; font-family: var(--serif); font-size: 1.1rem;
+      color: #fff; flex-shrink: 0; overflow: hidden;
+    }
+    .byline-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .byline-name { font-weight: 500; font-size: 0.9rem; margin-bottom: 0.1rem; }
+    .byline-meta { font-size: 0.78rem; color: rgba(247,243,236,0.4); letter-spacing: 0.04em; }
+
+    /* ── SCENE OPENER ── */
+    .scene-opener {
+      background: var(--warm);
+      border-left: 3px solid var(--accent);
+      padding: 3rem 4vw 3rem calc(4vw + 2rem);
+    }
+    .scene-opener-inner { max-width: 680px; margin: 0 auto; }
+    .scene-label {
+      font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent); font-weight: 500; margin-bottom: 1rem; display: block;
+    }
+    .scene-opener p {
+      font-family: var(--serif); font-size: 1.1rem;
+      color: var(--ink); line-height: 1.8; margin-bottom: 1rem;
+    }
+    .scene-opener p:last-child { margin-bottom: 0; }
+    .scene-opener p.dialogue {
+      font-weight: 500; font-style: italic; color: var(--ink);
+      font-size: 1.15rem;
+    }
+
+    /* ── ARTICLE BODY ── */
+    .article-content {
+      max-width: 680px; margin: 0 auto;
+      padding: 5rem 4vw 2rem;
+    }
+    .article-content p {
+      font-size: 1.05rem; color: var(--ink-soft);
+      line-height: 1.9; margin-bottom: 1.75rem;
+    }
+    .article-content p.lead {
+      font-size: 1.2rem; color: var(--ink); font-weight: 400; line-height: 1.75;
+    }
+    .article-content h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 2.8vw, 2rem);
+      color: var(--ink); line-height: 1.2;
+      margin: 4rem 0 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--line);
+    }
+    .article-content strong { color: var(--ink); font-weight: 500; }
+    .article-content em.accent { font-style: normal; color: var(--accent); font-weight: 500; }
+    .article-content em.green { font-style: normal; color: var(--green); font-weight: 500; }
+
+    /* pull quote */
+    .pullquote {
+      border-left: 3px solid var(--accent);
+      padding: 0.5rem 0 0.5rem 2rem;
+      margin: 3rem 0;
+    }
+    .pullquote p {
+      font-family: var(--serif) !important;
+      font-size: clamp(1.25rem, 2.5vw, 1.6rem) !important;
+      color: var(--ink) !important;
+      line-height: 1.4 !important;
+      margin: 0 !important;
+    }
+
+    /* dark callout */
+    .callout {
+      background: var(--ink); color: var(--parchment);
+      padding: 2.25rem 2.5rem; margin: 3rem 0;
+    }
+    .callout-label {
+      font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent-lt); font-weight: 500; margin-bottom: 1rem; display: block;
+    }
+    .callout p {
+      font-size: 1rem !important; color: rgba(247,243,236,0.75) !important;
+      margin-bottom: 0.85rem !important; line-height: 1.8 !important;
+    }
+    .callout p:last-child { margin-bottom: 0 !important; }
+    .callout strong { color: var(--parchment); font-weight: 500; }
+
+    /* green callout — for growth/insight moments */
+    .callout-green {
+      background: #1a2a1a; color: var(--parchment);
+      padding: 2.25rem 2.5rem; margin: 3rem 0;
+      border-left: 4px solid var(--green-lt);
+    }
+    .callout-green .callout-label { color: #a8d5a8; }
+    .callout-green p {
+      font-size: 1rem !important; color: rgba(247,243,236,0.75) !important;
+      margin-bottom: 0.85rem !important; line-height: 1.8 !important;
+    }
+    .callout-green p:last-child { margin-bottom: 0 !important; }
+    .callout-green strong { color: #a8d5a8; font-weight: 500; }
+
+    /* big display line */
+    .big-line {
+      font-family: var(--serif);
+      font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+      color: var(--ink); line-height: 1.2;
+      margin: 3rem 0; display: block;
+    }
+    .big-line em { font-style: italic; color: var(--accent); }
+
+    /* the core thesis line — extra large */
+    .thesis-line {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      color: var(--ink); line-height: 1.2;
+      margin: 4rem 0; display: block;
+      border-top: 3px solid var(--ink);
+      border-bottom: 1px solid var(--line);
+      padding: 2rem 0;
+    }
+    .thesis-line em { font-style: italic; color: var(--green); }
+
+    /* warm scene box */
+    .scene-box {
+      background: var(--warm); border: 1px solid var(--line);
+      padding: 2.5rem; margin: 3rem 0;
+    }
+    .scene-box-label {
+      font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--ink-soft); font-weight: 500; margin-bottom: 1.25rem; display: block;
+    }
+    .scene-box p {
+      font-size: 1rem !important; color: var(--ink-soft) !important;
+      margin-bottom: 1rem !important; line-height: 1.85 !important;
+    }
+    .scene-box p:last-child { margin-bottom: 0 !important; }
+    .scene-box p.serif-em {
+      font-family: var(--serif) !important;
+      font-size: 1.1rem !important; color: var(--ink) !important;
+      font-style: italic; line-height: 1.5 !important;
+    }
+
+    /* rewiring list */
+    .rewiring-list {
+      list-style: none; margin: 2rem 0 2rem;
+      border-top: 1px solid var(--line);
+    }
+    .rewiring-list li {
+      display: flex; gap: 1.25rem; align-items: flex-start;
+      padding: 1.1rem 0; border-bottom: 1px solid var(--line);
+      font-size: 1rem; color: var(--ink-soft); line-height: 1.7;
+    }
+    .rewiring-dot {
+      flex-shrink: 0; width: 8px; height: 8px; border-radius: 50%;
+      background: var(--green); margin-top: 0.55rem;
+    }
+
+    /* closing section */
+    .closing {
+      background: #1a2a1a; color: var(--parchment);
+      padding: 3rem 2.5rem; margin: 4rem 0 0;
+    }
+    .closing-label {
+      font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: #a8d5a8; font-weight: 500; margin-bottom: 1.5rem; display: block;
+    }
+    .closing p {
+      font-size: 1rem !important; color: rgba(247,243,236,0.7) !important;
+      margin-bottom: 1.1rem !important; line-height: 1.85 !important;
+    }
+    .closing p.key-question {
+      font-family: var(--serif) !important;
+      font-size: clamp(1.2rem, 2.2vw, 1.5rem) !important;
+      color: var(--parchment) !important; font-style: italic;
+      line-height: 1.45 !important; margin: 1.5rem 0 !important;
+    }
+    .closing p.final-line {
+      font-family: var(--serif) !important;
+      font-size: 1rem !important;
+      color: rgba(247,243,236,0.5) !important;
+      font-style: italic; margin-bottom: 0 !important;
+    }
+
+    /* author bio */
+    .author-bio {
+      border-top: 1px solid var(--line);
+      padding: 2.5rem 0; margin-top: 3rem;
+      display: flex; gap: 1.5rem; align-items: flex-start;
+    }
+    .author-bio-avatar {
+      width: 60px; height: 60px; border-radius: 50%;
+      background: var(--accent); flex-shrink: 0; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--serif); font-size: 1.4rem; color: #fff;
+    }
+    .author-bio-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .author-bio-label {
+      font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent); font-weight: 500; margin-bottom: 0.4rem;
+    }
+    .author-bio-name {
+      font-family: var(--serif); font-size: 1.1rem; margin-bottom: 0.5rem;
+    }
+    .author-bio-text { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.7; }
+
+    /* CTA */
+    .article-cta {
+      background: var(--warm); border: 1px solid var(--line);
+      padding: 2.5rem; margin: 3rem 0 0;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1.5rem;
+    }
+    .article-cta-text h4 {
+      font-family: var(--serif); font-size: 1.3rem; margin-bottom: 0.4rem;
+    }
+    .article-cta-text p { font-size: 0.9rem; color: var(--ink-soft); margin: 0; }
+    .btn-primary {
+      background: var(--accent); color: #fff;
+      border: none; padding: 0.85rem 2rem;
+      font-family: var(--sans); font-size: 0.9rem; font-weight: 500;
+      letter-spacing: 0.04em; cursor: pointer; border-radius: 2px;
+      transition: background 0.2s; text-decoration: none; display: inline-block;
+      white-space: nowrap;
+    }
+    .btn-primary:hover { background: var(--accent-lt); }
+
+    .back-strip { padding: 2rem 0; }
+    .back-link {
+      font-size: 0.85rem; color: var(--ink-soft); text-decoration: none;
+      display: inline-flex; align-items: center; gap: 0.5rem; transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+
+    /* footer */
+    footer {
+      background: var(--ink); color: rgba(247,243,236,0.5);
+      padding: 3rem 8vw; display: flex;
+      align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--parchment); }
+    .footer-note { font-size: 0.8rem; }
+
+    @media (max-width: 680px) {
+      .nav-links .nav-link { display: none; }
+      .article-cta { flex-direction: column; }
+      .author-bio { flex-direction: column; }
+      .scene-opener { padding: 2rem 1.5rem 2rem 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Rick Ng</a>
+  <div class="nav-links">
+    <a href="index.html#about" class="nav-link">About</a>
+    <a href="index.html#articles" class="nav-link">Articles</a>
+    <a href="index.html#book" class="nav-cta">Book Free Session</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="article-hero">
+  <div class="hero-gradient"></div>
+  <div class="hero-pattern"></div>
+  <div class="article-hero-inner">
+    <p class="article-eyebrow">Growth · 7 min read</p>
+    <h1 class="article-hero-title">We Do Not Feel Our Way<br>Into New Actions.<br>We <em>Act Our Way</em><br>Into New Feelings.</h1>
+    <p class="article-hero-sub">On anger, a wife and her plants, yam cake on a Wednesday, and what consistent giving actually does to a person over time.</p>
+    <div class="article-byline">
+      <div class="byline-avatar">
+        <img src="src/assets/bio_photo.png" alt="Rick Ng" onerror="this.style.display='none'" />
+        R
+      </div>
+      <div>
+        <p class="byline-name">Rick Ng</p>
+        <p class="byline-meta">Life &amp; Mindset Coach · 2026</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCENE OPENER -->
+<div class="scene-opener">
+  <div class="scene-opener-inner">
+    <span class="scene-label">It started with a phone call</span>
+    <p class="dialogue">"We can no longer take care of your mom. My business will go down."</p>
+    <p>My brother and I had made the decision together. We had researched, visited, decided. We found a good home with good people. We believed we had done everything right. And now, two months later, the solution was failing — not quietly, but loudly, through the nights, through the complaints of neighbours, through the desperation of an operator who had no choice.</p>
+    <p>My mother had developed dementia. And her shouting through the nights was threatening everything the nursing home operator had built.</p>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="article-content">
+
+  <h2>What Happened in That Chair</h2>
+
+  <p class="lead">I sat down and felt two things arrive almost simultaneously.</p>
+
+  <p>First — <strong>disappointment</strong>. Deep, suffocating, total disappointment. The kind that doesn't announce itself dramatically. It just settles over everything like weight.</p>
+
+  <p>Then — <em class="accent">anger.</em></p>
+
+  <p>Not just at the situation. At her. Why did she develop dementia? Why couldn't she just stay there peacefully? Why couldn't she stop giving us more to carry?</p>
+
+  <div class="callout">
+    <span class="callout-label">I am not proud of that anger</span>
+    <p>But I am also not going to pretend it wasn't real. Because <strong>pretending emotions don't exist is precisely what keeps people stuck in them.</strong> The anger was real. I felt it fully. And then I let it rest.</p>
+    <p>Because I knew there was no immediate answer. And I knew that acting from anger would cost more than the situation already had. So I sat. And I waited for something to shift.</p>
+  </div>
+
+  <h2>My Wife and Her Plants</h2>
+
+  <p>My wife was on the balcony. She didn't know what had just happened. She was watering her plants, moving slowly and deliberately between them, pausing to admire each one — completely present in that quiet, unhurried act of nurturing.</p>
+
+  <p>The world outside might have been unravelling. Mine certainly felt like it was. But she was there, tending to something alive, giving it what it needed to grow.</p>
+
+  <div class="scene-box">
+    <span class="scene-box-label">What I saw through the glass</span>
+    <p>Life goes on. Even when yours has just been upended, somewhere nearby, someone is tending to something that needs care. The plants didn't know about the phone call. They just needed water. And she was there giving it.</p>
+    <p class="serif-em">I have a duty too. To nurture the life closest to me. Not because it is convenient. Not because the circumstances are ideal. But because nurturing — like her plants — is what keeps things alive.</p>
+  </div>
+
+  <p>I could not fall. I was needed. And somewhere in watching her tend to those plants, I remembered that.</p>
+
+  <h2>The Victim and the Giver</h2>
+
+  <p>Sitting in that chair, I had been feeling like the victim. The responsibility had fallen on me. The stress. The decisions. The weight of every development landing on my shoulders while I was also navigating a new job, constant travel, a year that had already taken more than its share.</p>
+
+  <div class="pullquote">
+    <p>But I was never the victim. I was the giver. And being the giver is not a burden — it is an opportunity.</p>
+  </div>
+
+  <p>The subject of this story was never me. It was my mother. An elderly woman with dementia, frightened and confused in a body and a mind that no longer behaved the way she expected. She needed someone to fight for her. Not to manage her situation from a distance. <strong>To fight for her.</strong></p>
+
+  <span class="big-line">So I got up<br>from the chair.</span>
+
+  <p>Not because I had a solution. Only love. And action. And the belief that with both — I could create a possibility of a better future for her.</p>
+
+  <h2>The Right Place</h2>
+
+  <p>We found another home. Further from us than the first, which added its own weight. But it was the right place — properly equipped for dementia care, with trained staff, regular doctor visits, psychiatric medication managed correctly, and a structure that gave her mind something to hold onto.</p>
+
+  <div class="scene-box">
+    <span class="scene-box-label">Three months in</span>
+    <p>Her face is calmer. She speaks about the past with accuracy. The shouting has stopped. Her mood has stabilised.</p>
+    <p class="serif-em">Recently, we brought her food she used to love. She tasted it. Looked up. And said the food was good.</p>
+  </div>
+
+  <h2>A Wednesday With Yam Cake</h2>
+
+  <p>I want to tell you about this Wednesday. Work was chaotic. A sudden customer issue had erupted and I was needed.</p>
+
+  <div class="callout">
+    <span class="callout-label">The old me vs the new me</span>
+    <p>The old me — the version who still saw my mother's situation as a burden — would have used that chaos as the excuse not to visit. The justification would have written itself. <em>I'm needed here. It's urgent. I'll go next time.</em></p>
+    <p><strong>But the new me didn't feel the burden.</strong> Not this Wednesday. I felt something different — quiet and unhurried, but clear. Seeing her was the priority. I wanted to see her.</p>
+  </div>
+
+  <p>I stopped and bought some of her favourite snacks on the way. Yam cake. Something she used to love.</p>
+
+  <p>When I arrived, I sat with her. For a little while the world narrowed down to just the two of us. We talked. We reminisced. Some stories she could remember clearly. Some she couldn't. But she was present. And so was I.</p>
+
+  <p>She tasted the yam cake. She said it was nice.</p>
+
+  <h2>What Consistent Giving Actually Does</h2>
+
+  <span class="thesis-line">We do not feel our way into new actions.<br>We <em>act our way</em> into new feelings.</span>
+
+  <p>I did not wait until I felt like visiting before I visited. I visited. And the feeling followed. And then it grew. And now, on a chaotic Wednesday with work pulling at me from every direction — I <em class="accent">wanted</em> to go. Genuinely. Without forcing it.</p>
+
+  <div class="callout-green">
+    <span class="callout-label">What consistent giving rewires</span>
+    <ul class="rewiring-list">
+      <li><span class="rewiring-dot"></span>Your feelings</li>
+      <li><span class="rewiring-dot"></span>Your actions</li>
+      <li><span class="rewiring-dot"></span>Your willingness</li>
+      <li><span class="rewiring-dot"></span>Your initiative</li>
+      <li><span class="rewiring-dot"></span>Your thoughts</li>
+      <li><span class="rewiring-dot"></span>Your expectations of what is possible between two people — even when one of them sometimes doesn't remember your name</li>
+    </ul>
+  </div>
+
+  <p>This is not a lesson I found in a book. It is a lesson my mother taught me without knowing she was teaching it. By needing care at the exact moment I needed to learn how to give it.</p>
+
+  <p>She made mistakes raising me. Some of them left marks. And she is also the one who needs care now. <strong>Both things are true.</strong> And choosing to show up for her — with yam cake, with presence, with the willingness to sit quietly in a room where some stories are remembered and some are not — that choice has changed me more than anything I have read or studied or been taught.</p>
+
+  <!-- CLOSING -->
+  <div class="closing">
+    <span class="closing-label">For anyone who is still in the chair</span>
+    <p>If you are sitting somewhere right now with the weight of a responsibility that feels more like burden than opportunity — I want to offer you the question that changed everything for me:</p>
+    <p class="key-question">Are you the victim of this situation — or are you the giver it is waiting for?</p>
+    <p>You do not need to feel ready. You do not need to feel willing. You do not need to feel anything other than the small, quiet decision to act anyway.</p>
+    <p>The feeling will follow the action. It always does.</p>
+    <p class="final-line">And one day — on an ordinary Wednesday, in a quiet room, with a piece of yam cake — you will realise the burden became something else entirely. It became the reason you showed up.</p>
+  </div>
+
+  <!-- AUTHOR BIO -->
+  <div class="author-bio">
+    <div class="author-bio-avatar">
+      <img src="src/assets/bio_photo.png" alt="Rick Ng" onerror="this.style.display='none'" />
+      R
+    </div>
+    <div>
+      <p class="author-bio-label">About the Author</p>
+      <p class="author-bio-name">Rick Ng</p>
+      <p class="author-bio-text">Former engineering leader at Intel & Motorola, certified coach, Associate Member of the Malaysian Association of Certified Coaches (MACC), and founder of The Dangerous Mind — a coaching practice for leaders who are done waiting for things to calm down. Based in Penang, Malaysia. Coaching globally.</p>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="article-cta">
+    <div class="article-cta-text">
+      <h4>Still in the chair?</h4>
+      <p>Book a free 15-minute session with Rick — no pitch, just a real conversation about where you are right now.</p>
+    </div>
+    <a href="index.html#book" class="btn-primary">Book Free Session</a>
+  </div>
+
+  <div class="back-strip">
+    <a href="index.html#articles" class="back-link">← Back to all articles</a>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Rick Ng — Coaching</div>
+  <p class="footer-note">© 2026 Rick Ng. Based in Penang, Malaysia.</p>
+</footer>
+
+</body>
+</html>
