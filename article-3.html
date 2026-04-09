@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Target Was Never Me — Rick Ng</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:       #1a1510;
+      --ink-soft:  #4a3f35;
+      --parchment: #f7f3ec;
+      --warm:      #ede7db;
+      --accent:    #b5572a;
+      --accent-lt: #d4784a;
+      --line:      rgba(26,21,16,0.12);
+      --serif:     'DM Serif Display', Georgia, serif;
+      --sans:      'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--parchment);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 6vw;
+      background: rgba(247,243,236,0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-logo {
+      font-family: var(--serif); font-size: 1.15rem;
+      letter-spacing: 0.01em; text-decoration: none; color: var(--ink);
+    }
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
+    .nav-link {
+      font-size: 0.85rem; color: var(--ink-soft); text-decoration: none;
+      font-weight: 400; transition: color 0.2s;
+    }
+    .nav-link:hover { color: var(--accent); }
+    .nav-cta {
+      background: var(--ink); color: var(--parchment);
+      padding: 0.55rem 1.4rem; font-family: var(--sans);
+      font-size: 0.85rem; font-weight: 500; letter-spacing: 0.04em;
+      border-radius: 2px; transition: background 0.2s;
+      text-decoration: none; display: inline-block; border: none;
+    }
+    .nav-cta:hover { background: var(--accent); }
+
+    /* ── HERO ── */
+    .article-hero {
+      padding-top: 72px;
+      background: #1a1a2a;
+      color: var(--parchment);
+      position: relative; overflow: hidden;
+    }
+    .hero-gradient {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #1a1a2a 0%, #4a3060 100%);
+      opacity: 0.95;
+    }
+    .hero-pattern {
+      position: absolute; inset: 0; opacity: 0.04;
+      background-image: repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 50%);
+      background-size: 12px 12px;
+    }
+    .article-hero-inner {
+      position: relative; z-index: 1;
+      max-width: 780px; margin: 0 auto;
+      padding: 6rem 4vw 4rem;
+    }
+    .article-eyebrow {
+      font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(247,243,236,0.5); font-weight: 500; margin-bottom: 1.5rem;
+    }
+    .article-hero-title {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+      line-height: 1.08; margin-bottom: 1.75rem;
+    }
+    .article-hero-title em { font-style: italic; color: #c9a0dc; }
+    .article-hero-sub {
+      font-size: 1.1rem; color: rgba(247,243,236,0.6);
+      line-height: 1.7; margin-bottom: 2.5rem; max-width: 580px;
+    }
+    .article-byline {
+      display: flex; align-items: center; gap: 1rem;
+      padding-top: 2rem; border-top: 1px solid rgba(247,243,236,0.1);
+    }
+    .byline-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--accent); display: flex; align-items: center;
+      justify-content: center; font-family: var(--serif); font-size: 1.1rem;
+      color: #fff; flex-shrink: 0; overflow: hidden;
+    }
+    .byline-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .byline-name { font-weight: 500; font-size: 0.9rem; margin-bottom: 0.1rem; }
+    .byline-meta { font-size: 0.78rem; color: rgba(247,243,236,0.4); letter-spacing: 0.04em; }
+
+    /* ── OPENING QUOTE ── */
+    .opening-quote {
+      background: var(--warm);
+      padding: 4rem 4vw;
+    }
+    .opening-quote-inner {
+      max-width: 680px; margin: 0 auto;
+      border-left: 3px solid var(--accent);
+      padding-left: 2rem;
+    }
+    .opening-quote p {
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      line-height: 1.35; color: var(--ink); margin-bottom: 1rem;
+    }
+    .opening-quote cite {
+      font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--ink-soft); font-style: normal; font-weight: 500;
+    }
+
+    /* ── ARTICLE BODY ── */
+    .article-content {
+      max-width: 680px; margin: 0 auto;
+      padding: 5rem 4vw 2rem;
+    }
+
+    .article-content p {
+      font-size: 1.05rem; color: var(--ink-soft);
+      line-height: 1.9; margin-bottom: 1.75rem;
+    }
+    .article-content p.lead {
+      font-size: 1.2rem; color: var(--ink);
+      font-weight: 400; line-height: 1.75;
+    }
+
+    /* section headings */
+    .article-content h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 2.8vw, 2rem);
+      color: var(--ink); line-height: 1.2;
+      margin: 4rem 0 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--line);
+    }
+
+    /* pull quote */
+    .pullquote {
+      border-left: 3px solid var(--accent);
+      padding: 0.5rem 0 0.5rem 2rem;
+      margin: 3rem 0;
+    }
+    .pullquote p {
+      font-family: var(--serif) !important;
+      font-size: clamp(1.25rem, 2.5vw, 1.6rem) !important;
+      color: var(--ink) !important;
+      line-height: 1.4 !important;
+      margin: 0 !important;
+    }
+
+    /* dark callout */
+    .callout {
+      background: var(--ink); color: var(--parchment);
+      padding: 2.25rem 2.5rem; margin: 3rem 0;
+    }
+    .callout-label {
+      font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent-lt); font-weight: 500; margin-bottom: 1rem; display: block;
+    }
+    .callout p {
+      font-size: 1rem !important; color: rgba(247,243,236,0.75) !important;
+      margin-bottom: 0.85rem !important; line-height: 1.8 !important;
+    }
+    .callout p:last-child { margin-bottom: 0 !important; }
+    .callout strong { color: var(--parchment); font-weight: 500; }
+
+    /* big emphasis line */
+    .big-line {
+      font-family: var(--serif);
+      font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+      color: var(--ink); line-height: 1.2;
+      margin: 3rem 0; display: block;
+    }
+    .big-line em { font-style: italic; color: var(--accent); }
+
+    /* warm highlight box */
+    .highlight-box {
+      background: var(--warm); border: 1px solid var(--line);
+      padding: 2.25rem 2.5rem; margin: 3rem 0;
+    }
+    .highlight-box-label {
+      font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent); font-weight: 500; margin-bottom: 1rem; display: block;
+    }
+    .highlight-box p {
+      font-size: 1rem !important; color: var(--ink-soft) !important;
+      margin-bottom: 1rem !important;
+    }
+    .highlight-box p:last-child { margin-bottom: 0 !important; }
+    .highlight-box p.serif-line {
+      font-family: var(--serif) !important;
+      font-size: 1.15rem !important; color: var(--ink) !important;
+      font-style: italic; line-height: 1.5 !important;
+    }
+
+    /* moment box — for the chair scene */
+    .moment {
+      border-top: 3px solid var(--ink);
+      border-bottom: 1px solid var(--line);
+      padding: 2.5rem 0; margin: 3rem 0;
+    }
+    .moment p {
+      font-family: var(--serif) !important;
+      font-size: 1.05rem !important; color: var(--ink) !important;
+      line-height: 1.75 !important; margin-bottom: 1rem !important;
+    }
+    .moment p:last-child { margin-bottom: 0 !important; }
+    .moment-label {
+      font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--ink-soft); font-weight: 500; margin-bottom: 1.25rem; display: block;
+    }
+
+    /* closing reflection */
+    .reflection {
+      background: #1a1a2a; color: var(--parchment);
+      padding: 3rem 2.5rem; margin: 4rem 0 0;
+    }
+    .reflection-label {
+      font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: #c9a0dc; font-weight: 500; margin-bottom: 1.5rem; display: block;
+    }
+    .reflection p {
+      font-size: 1rem !important; color: rgba(247,243,236,0.7) !important;
+      margin-bottom: 1.1rem !important; line-height: 1.85 !important;
+    }
+    .reflection p.key-question {
+      font-family: var(--serif) !important;
+      font-size: clamp(1.2rem, 2.2vw, 1.5rem) !important;
+      color: var(--parchment) !important; font-style: italic;
+      line-height: 1.45 !important; margin: 1.5rem 0 !important;
+    }
+    .reflection p.final-line {
+      font-family: var(--serif) !important;
+      font-size: 1rem !important;
+      color: rgba(247,243,236,0.5) !important;
+      font-style: italic; margin-bottom: 0 !important;
+    }
+
+    /* inline accents */
+    .article-content strong { color: var(--ink); font-weight: 500; }
+    .article-content em.accent { font-style: normal; color: var(--accent); font-weight: 500; }
+
+    /* ── CTA ── */
+    .article-cta {
+      background: var(--warm); border: 1px solid var(--line);
+      padding: 2.5rem; margin: 3rem 0 0;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1.5rem;
+    }
+    .article-cta-text h4 {
+      font-family: var(--serif); font-size: 1.3rem; margin-bottom: 0.4rem;
+    }
+    .article-cta-text p { font-size: 0.9rem; color: var(--ink-soft); margin: 0; }
+    .btn-primary {
+      background: var(--accent); color: #fff;
+      border: none; padding: 0.85rem 2rem;
+      font-family: var(--sans); font-size: 0.9rem; font-weight: 500;
+      letter-spacing: 0.04em; cursor: pointer; border-radius: 2px;
+      transition: background 0.2s; text-decoration: none; display: inline-block;
+      white-space: nowrap;
+    }
+    .btn-primary:hover { background: var(--accent-lt); }
+
+    /* ── AUTHOR BIO ── */
+    .author-bio {
+      border-top: 1px solid var(--line);
+      padding: 2.5rem 0; margin-top: 3rem;
+      display: flex; gap: 1.5rem; align-items: flex-start;
+    }
+    .author-bio-avatar {
+      width: 60px; height: 60px; border-radius: 50%;
+      background: var(--accent); flex-shrink: 0; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--serif); font-size: 1.4rem; color: #fff;
+    }
+    .author-bio-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .author-bio-label {
+      font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent); font-weight: 500; margin-bottom: 0.4rem;
+    }
+    .author-bio-name {
+      font-family: var(--serif); font-size: 1.1rem; margin-bottom: 0.5rem;
+    }
+    .author-bio-text { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.7; }
+
+    .back-strip { padding: 2rem 0; }
+    .back-link {
+      font-size: 0.85rem; color: var(--ink-soft); text-decoration: none;
+      display: inline-flex; align-items: center; gap: 0.5rem; transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink); color: rgba(247,243,236,0.5);
+      padding: 3rem 8vw; display: flex;
+      align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--parchment); }
+    .footer-note { font-size: 0.8rem; }
+
+    @media (max-width: 680px) {
+      .nav-links .nav-link { display: none; }
+      .article-cta { flex-direction: column; }
+      .author-bio { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Rick Ng</a>
+  <div class="nav-links">
+    <a href="index.html#about" class="nav-link">About</a>
+    <a href="index.html#articles" class="nav-link">Articles</a>
+    <a href="index.html#book" class="nav-cta">Book Free Session</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="article-hero">
+  <div class="hero-gradient"></div>
+  <div class="hero-pattern"></div>
+  <div class="article-hero-inner">
+    <p class="article-eyebrow">Personal · 6 min read</p>
+    <h1 class="article-hero-title">The Target Was<br><em>Never Me</em></h1>
+    <p class="article-hero-sub">On the nursing home call that undid everything, the chair I had to find, and the reframe that quietly changed how I show up for the people I love.</p>
+    <div class="article-byline">
+      <div class="byline-avatar">
+        <img src="src/assets/bio_photo.png" alt="Rick Ng" onerror="this.style.display='none'" />
+        R
+      </div>
+      <div>
+        <p class="byline-name">Rick Ng</p>
+        <p class="byline-meta">Life &amp; Mindset Coach · 2026</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OPENING QUOTE -->
+<div class="opening-quote">
+  <div class="opening-quote-inner">
+    <p>"We can no longer take care of your mom. My business will go down."</p>
+    <cite>— The call that started all of this</cite>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="article-content">
+
+  <p class="lead">I had to find a chair. Not because my legs gave way. But because what I thought was finally settled had just come undone.</p>
+
+  <p>My brother and I had made the decision together. We had found a good nursing home — good people, a clean facility, staff who seemed to genuinely care. We had done everything right. And now, two months later, the solution was failing.</p>
+
+  <p>My mother had developed dementia. She was shouting constantly — through the afternoons, through the nights — until the neighbours complained. Until the operator, a kind woman running a small business, told us she had no choice. My mother's condition was threatening everything she had built.</p>
+
+  <h2>What I Felt in That Chair</h2>
+
+  <p>People talk about hopelessness like it's a dramatic thing. Like it arrives with darkness and noise and the feeling of collapse. That's not what it felt like to me.</p>
+
+  <div class="moment">
+    <span class="moment-label">What it actually felt like</span>
+    <p>Four walls closing in slowly. And then — nothing. No answers. No hands reaching out. No light at the end of anything. Just silence. Cruel and complete.</p>
+  </div>
+
+  <p>What I felt most was not grief — though grief was there. It was <strong>disappointment</strong>. Deep, exhausting disappointment. I had believed the problem was solved. I had allowed myself to exhale. And now reality was telling me, quietly and without apology, that I had to start again.</p>
+
+  <p>There was reluctance too. Not wanting to go through it again — the searching, the visits to new facilities, the paperwork, the physical reality of moving an elderly woman with dementia from one place to another. I was tired in a way that sleep couldn't fix.</p>
+
+  <div class="pullquote">
+    <p>Not how do I solve this — but how do I carry on? How does a person keep functioning when the weight keeps redistributing itself and never quite lifts?</p>
+  </div>
+
+  <h2>The First Book in Ten Years</h2>
+
+  <p>I've always loved reading. But somewhere in the years of corporate life — the meetings, the travel, the constant demand of being needed — I had quietly stopped. It happened the way most slow losses happen: gradually, and then completely, without a clear moment you could point to.</p>
+
+  <p>In the weeks after the nursing home call, I picked up a physical book for the first time in nearly ten years. <em>Love for Imperfect Things</em> by Haemin Sunim — a Korean Buddhist monk whose writing moves slowly and without force, like water finding its level.</p>
+
+  <div class="callout">
+    <span class="callout-label">Why that book</span>
+    <p>I wanted to understand my mother. Not fix her — <strong>dementia cannot be fixed.</strong> But understand her. The woman shouting through the night was not the woman who raised me. She was still in there somewhere, behind a condition that had rearranged the furniture of her mind.</p>
+    <p>I thought that if I could first seek more clarity about myself — about how I was holding all of this internally — I might be able to find her more easily.</p>
+  </div>
+
+  <p>That book led to another. And another. Psychology. Medicine. Spirituality. Philosophy. A loop of input and reflection that slowly, quietly began to change something in how I was thinking.</p>
+
+  <p>My book collection has skyrocketed since then. I read every day now. It is one of the <em class="accent">unexpected gifts</em> that came wrapped inside one of the hardest periods of my life.</p>
+
+  <h2>The Reframe That Changed Everything</h2>
+
+  <p>Somewhere in the reading and the reflecting, something shifted. I had been asking the wrong question.</p>
+
+  <span class="big-line">I had been asking<br><em>how do I carry on</em> —<br>which placed me at the centre.</span>
+
+  <p>My burden. My exhaustion. My need to find a way through. But the target was never me.</p>
+
+  <p>The person who needed help was my mother. An elderly woman with dementia who was shouting through the night not because she wanted to cause chaos — but because she was <strong>frightened and confused</strong> and in a body and a mind that no longer behaved the way she expected. She needed care. Specifically, she needed people who understood dementia. Who had the training, the patience, the environment, and the genuine vocation to care for someone in her condition.</p>
+
+  <div class="pullquote">
+    <p>Once I saw that clearly, the reluctance dissolved. Not completely — the tiredness was still real. But the direction became clear.</p>
+  </div>
+
+  <p>I wasn't looking for an easier situation. I was looking for the right one. For her.</p>
+
+  <h2>The Right Place</h2>
+
+  <p>We found another nursing home. Further from us than the first — which added its own layer of difficulty. But it was equipped for exactly this. Staff trained in dementia care. Regular doctor visits. Psychiatric medication managed properly. A routine that gave her mind something to hold onto.</p>
+
+  <p>My brother and I visit consistently. Friends and family come. She is not alone.</p>
+
+  <div class="highlight-box">
+    <span class="highlight-box-label">Three months later</span>
+    <p>Her face is calmer. She speaks about the past now — accurately, with the detail that only genuine memory carries. Her mood has stabilised. The shouting has stopped.</p>
+    <p class="serif-line">And recently, when we brought her food she used to love — she tasted it, looked up, and said the food was good.</p>
+  </div>
+
+  <h2>What This Taught Me About Being Human Under Pressure</h2>
+
+  <p>I am not sharing this story to be admired for getting through it. Many people carry heavier things with less support and more grace than I managed.</p>
+
+  <p>I'm sharing it because I learned something in that chair — and in the books, and in the slow reframe — that I think is worth saying out loud.</p>
+
+  <div class="callout">
+    <span class="callout-label">The pattern</span>
+    <p>When we are pushed into a corner, the instinct is to make ourselves the centre of the problem. <strong>How do I survive this? How do I carry on?</strong> And that instinct is human and understandable.</p>
+    <p>But it is also, sometimes, the thing that keeps us stuck.</p>
+    <p>The moment the question shifts — from <em>what do I need</em> to <em>what does this situation actually require</em> — something opens up. Not because the problem gets smaller. But because the direction gets clearer.</p>
+  </div>
+
+  <p><strong>Clarity is not the same as calm.</strong> I was not calm in that chair. I was not calm searching for a new home, making calls, visiting facilities, managing the logistics of moving someone who didn't fully understand what was happening.</p>
+
+  <span class="big-line">But I was <em>clear.</em><br>And clarity, it turns out,<br>is enough to move forward.</span>
+
+  <!-- CLOSING REFLECTION -->
+  <div class="reflection">
+    <span class="reflection-label">For anyone in their own chair right now</span>
+    <p>I don't know what your four walls look like. Maybe it's a parent. Maybe it's a job. Maybe it's a relationship or a health diagnosis or a situation at work that has been quietly accumulating weight for longer than you want to admit.</p>
+    <p class="key-question">Who or what actually needs help here — and am I asking the right question?</p>
+    <p>The target might not be who you think it is.</p>
+    <p class="final-line">And once you see the real target clearly — even through exhaustion, even through the reluctance, even through the silence of four closing walls — you will know what to do next.</p>
+  </div>
+
+  <!-- AUTHOR BIO -->
+  <div class="author-bio">
+    <div class="author-bio-avatar">
+      <img src="src/assets/bio_photo.png" alt="Rick Ng" onerror="this.style.display='none'" />
+      R
+    </div>
+    <div>
+      <p class="author-bio-label">About the Author</p>
+      <p class="author-bio-name">Rick Ng</p>
+      <p class="author-bio-text">Former engineering leader at Intel & Motorola, certified coach, and founder of The Dangerous Mind — a coaching practice for leaders who are done waiting for things to calm down. Based in Penang, Malaysia. Coaching globally.</p>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="article-cta">
+    <div class="article-cta-text">
+      <h4>Sitting in your own chair?</h4>
+      <p>Book a free 15-minute session with Rick — no pitch, just a real conversation about where you are right now.</p>
+    </div>
+    <a href="index.html#book" class="btn-primary">Book Free Session</a>
+  </div>
+
+  <div class="back-strip">
+    <a href="index.html#articles" class="back-link">← Back to all articles</a>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Rick Ng — Coaching</div>
+  <p class="footer-note">© 2026 Rick Ng. Based in Penang, Malaysia.</p>
+</footer>
+
+</body>
+</html>

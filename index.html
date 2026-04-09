@@ -316,45 +316,6 @@
       font-style: italic;
     }
 
-    /* ── POINT B ── */
-    .pointb { background: var(--parchment); padding: 7rem 8vw; }
-    .pointb-header { max-width: 640px; margin-bottom: 5rem; }
-    .pointb-header .section-title { margin-bottom: 1rem; }
-    .pointb-header p { font-size: 1.05rem; color: var(--ink-soft); line-height: 1.8; }
-    .pointb-items { display: flex; flex-direction: column; }
-    .pointb-item {
-      display: grid; grid-template-columns: 80px 1fr;
-      align-items: start; padding: 3rem 0;
-      border-top: 1px solid var(--line);
-    }
-    .pointb-item:last-child { border-bottom: 1px solid var(--line); }
-    .pointb-num {
-      font-family: var(--serif); font-size: 3.5rem;
-      color: var(--accent); opacity: 0.2; line-height: 1; padding-top: 0.1rem;
-      transition: opacity 0.3s;
-    }
-    .pointb-item:hover .pointb-num { opacity: 0.6; }
-    .pointb-right { padding: 0 2rem 0 0; }
-    .pointb-headline {
-      font-family: var(--serif);
-      font-size: clamp(1.25rem, 2.2vw, 1.65rem);
-      line-height: 1.25; color: var(--ink); margin-bottom: 0.75rem;
-    }
-    .pointb-headline em { font-style: italic; color: var(--accent); }
-    .pointb-body { font-size: 0.95rem; color: var(--ink-soft); line-height: 1.85; }
-    .pointb-closing {
-      margin-top: 4rem; padding: 2.5rem;
-      background: var(--ink); color: var(--parchment);
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 1.5rem;
-    }
-    .pointb-closing p {
-      font-family: var(--serif); font-size: 1.2rem;
-      line-height: 1.45; max-width: 560px;
-      color: rgba(247,243,236,0.85);
-    }
-    .pointb-closing p em { font-style: italic; color: var(--accent-lt); }
-
     /* ── FORMS SECTION ── */
     .forms-section { background: var(--parchment); padding: 7rem 8vw; }
     .forms-grid {
@@ -419,9 +380,7 @@
       .why-inner,
       .articles-grid { grid-template-columns: 1fr; }
       .article-card.featured { grid-row: span 1; }
-      .pointb-item { grid-template-columns: 50px 1fr; }
-      .pointb-num { font-size: 2.5rem; }
-      .pointb-closing { flex-direction: column; }
+      .offer-cards { gap: 1rem; }
     }
 
     /* ── FADE IN ── */
@@ -672,18 +631,19 @@
       </div>
     </a>
 
-    <!-- PLACEHOLDER CARD 3 -->
-    <div class="article-card fade-in" style="opacity:0.5; pointer-events:none;">
+    <!-- ARTICLE CARD 3 -->
+    <a href="article-3.html" class="article-card fade-in">
       <div class="article-thumb" style="aspect-ratio:16/9;">
-        <div class="article-thumb-bg" style="background: linear-gradient(135deg, #1a1a2a 0%, #3a4a8a 100%);"></div>
+        <div class="article-thumb-bg" style="background: linear-gradient(135deg, #1a1a2a 0%, #4a3060 100%);"></div>
         <div class="article-thumb-pattern"></div>
-        <span class="article-tag" style="position:relative;z-index:1;">Coming Soon</span>
+        <div class="article-number">03</div>
+        <span class="article-tag" style="position:relative;z-index:1;">Personal · 6 min read</span>
       </div>
       <div class="article-body">
-        <h3 class="article-title" style="font-size:1.1rem;">More on the way</h3>
-        <p class="article-meta">Subscribe to be notified</p>
+        <h3 class="article-title" style="font-size:1.1rem;">The Target Was Never Me</h3>
+        <p class="article-meta">Rick Ng · 2026</p>
       </div>
-    </div>
+    </a>
 
   </div>
   <p class="articles-more">More articles drop regularly — <a href="#book" style="color:var(--accent); text-decoration:none;">subscribe to the newsletter</a> to get them first.</p>
